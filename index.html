@@ -395,22 +395,30 @@
         }
         
         function showCountdown() {
-            let count = 3;
+            const messages = [
+                '💕 You know me so well...',
+                '✨ That\'s my patootie!',
+                '🎉 Perfect answers!',
+                '💖 Now for the real question...'
+            ];
+            
+            let index = 0;
             const countdown = document.createElement('div');
             countdown.className = 'countdown';
-            countdown.textContent = count;
+            countdown.style.fontSize = '3rem';
+            countdown.textContent = messages[index];
             document.body.appendChild(countdown);
             
             const interval = setInterval(() => {
-                count--;
-                if (count > 0) {
-                    countdown.textContent = count;
+                index++;
+                if (index < messages.length) {
+                    countdown.textContent = messages[index];
                 } else {
                     clearInterval(interval);
                     countdown.remove();
                     document.querySelector('.container').classList.add('visible');
                 }
-            }, 1000);
+            }, 1500);
         }
         
         function moveButton() {
@@ -448,7 +456,7 @@
             setTimeout(() => {
                 document.querySelector('.container').innerHTML = '<h1 class="accepted">🎉 Yay! You made my day patootieee! 💕<br><br>Thank you for being my Valentine 💖</h1><button class="gift-btn" onclick="showGift()">Open Your Gift 🎁</button><div id="giftArea"></div>';
                 overlay.remove();
-            }, 800);
+            }, 1500);
         }
         
         function showGift() {
@@ -462,11 +470,10 @@
             setTimeout(() => {
                 document.getElementById('giftArea').innerHTML = '<div class="kiss">💋</div>';
                 setTimeout(() => {
-                    document.getElementById('giftArea').innerHTML += '<div class="final-message">✨ Stay tuned for much more gifts throughout this Valentine\'s week! ✨<br><br>💝 The journey has just begun... 💝</div>';
+                    document.getElementById('giftArea').innerHTML += '<div class="final-message">✨ You\'re my favorite person in the whole world ✨<br><br>💝 Forever yours, this Valentine\'s and always 💝</div>';
                 }, 800);
             }, 1000);
         }
-        
         document.getElementById('passwordInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') validatePassword();
         });
