@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank you for being my Valentine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            display: none;
+        }
+        .container.visible {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+        .buttons {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .btn {
+            padding: 1rem 3rem;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-yes {
+            background: #ff1744;
+            color: white;
+        }
+        .btn-no {
+            background: white;
+            color: #ff1744;
+            position: absolute;
+            transition: all 0.3s;
+        }
+        .accepted {
+            font-size: 2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .gift-btn {
+            background: #ff1744;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.3rem;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 2rem;
+        }
+        .gift-box {
+            font-size: 5rem;
+            cursor: pointer;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        .gift-box:hover {
+            transform: scale(1.1);
+        }
+        .gift-box.opening {
+            animation: shake 0.5s, fadeOut 0.5s 0.5s forwards;
+        }
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; transform: scale(0); }
+        }
+        .kiss {
+            font-size: 8rem;
+            animation: zoomIn 0.5s;
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .final-message {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            animation: fadeInUp 1s;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff1744;
+            transform: rotate(45deg);
+            animation: float 6s ease-in-out infinite;
+        }
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff1744;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart::after {
+            left: 10px;
+            top: 0;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.6s;
+        }
+        .modal.hidden {
+            display: none;
+        }
+        .modal.closing {
+            animation: fadeOut 0.6s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+        .login-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: scaleIn 0.6s;
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .login-box h2 {
+            color: #ff6b9d;
+            margin-bottom: 1.5rem;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ff6b9d;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .login-box button {
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .login-box button:hover {
+            background: #ff1744;
+        }
+        .error {
+            color: #ff1744;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .quiz-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            animation: scaleIn 0.6s;
+        }
+        .quiz-box h2 {
+            color: #ff6b9d;
+            margin-bottom: 1.5rem;
+        }
+        .option {
+            background: #f8f8f8;
+            border: 2px solid #ff6b9d;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .option:hover {
+            background: #ffe0e9;
+        }
+        .warning {
+            color: #ff1744;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        .angry-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
+            z-index: 2000;
+            animation: angryShake 0.5s;
+        }
+        @keyframes angryShake {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            25% { transform: translate(-50%, -50%) rotate(-15deg); }
+            75% { transform: translate(-50%, -50%) rotate(15deg); }
+        }
+        .countdown {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1500;
+            font-size: 10rem;
+            color: white;
+            animation: pulse 1s;
+        }
+        .transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #ff6b9d, #c06c84);
+            z-index: 3000;
+            pointer-events: none;
+            animation: fadeOutOverlay 1.5s forwards;
+        }
+        @keyframes fadeOutOverlay {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .burst-heart {
+            position: fixed;
+            font-size: 2rem;
+            z-index: 3001;
+            animation: burstOut 1.2s ease-out forwards;
+        }
+        @keyframes burstOut {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            50% { opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loginModal" class="modal">
+        <div class="login-box">
+            <h2>💝 Enter Password</h2>
+            <input type="password" id="passwordInput" placeholder="Password">
+            <button onclick="validatePassword()">Enter</button>
+            <div id="error" class="error"></div>
+        </div>
+    </div>
+    <div id="quiz1" class="modal hidden">
+        <div class="quiz-box">
+            <h2>Question 1</h2>
+            <p>Mine favourite number?</p>
+            <div class="option" onclick="checkAnswer(1, '7')">7</div>
+            <div class="option" onclick="checkAnswer(1, 'સાત')">સાત</div>
+            <div class="option" onclick="checkAnswer(1, '8-1')">8-1</div>
+            <div class="option" onclick="checkAnswer(1, '29')">Same as yours</div>
+            <div id="warning1" class="warning"></div>
+        </div>
+    </div>
+    <div id="quiz2" class="modal hidden">
+        <div class="quiz-box">
+            <h2>Question 2</h2>
+            <p>Who is more of me?</p>
+            <div class="option" onclick="checkAnswer(2, 'spring')">Sleeps a lot</div>
+            <div class="option" onclick="checkAnswer(2, 'summer')">Plays lot of TT</div>
+            <div class="option" onclick="checkAnswer(2, 'autumn')">Holds your hands all the time</div>
+            <div class="option" onclick="checkAnswer(2, 'winter')">Motluuu</div>
+            <div id="warning2" class="warning"></div>
+        </div>
+    </div>
+    <div id="quiz3" class="modal hidden">
+        <div class="quiz-box">
+            <h2>Question 3</h2>
+            <p>I am more addicted to?</p>
+            <div class="option" onclick="checkAnswer(3, 'evening')">Madamji</div>
+            <div class="option" onclick="checkAnswer(3, 'afternoon')">Sneakers</div>
+            <div class="option" onclick="checkAnswer(3, 'morning')">Gaali</div>
+            <div class="option" onclick="checkAnswer(3, 'night')">Coffee</div>
+            <div id="warning3" class="warning"></div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Hey Drashti</h1>
+        <h1>💕 Will you be my Valentine? 💕</h1>
+        <div class="buttons">
+            <button class="btn btn-yes" onclick="acceptProposal()">Yes! 💖</button>
+            <button class="btn btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+        </div>
+    </div>
+    <script>
+        const correctPassword = 'b2lpaQ==';
+        const answers = { 1: '29', 2: 'autumn', 3: 'evening' };
+        
+        function validatePassword() {
+            const input = document.getElementById('passwordInput').value;
+            const encoded = btoa(input);
+            
+            if (encoded === correctPassword) {
+                document.getElementById('loginModal').classList.add('closing');
+                setTimeout(() => {
+                    document.getElementById('loginModal').classList.add('hidden');
+                    document.getElementById('quiz1').classList.remove('hidden');
+                }, 600);
+            } else {
+                document.getElementById('error').textContent = 'Incorrect password!';
+            }
+        }
+        
+        function checkAnswer(question, answer) {
+            if (answers[question] === answer) {
+                document.getElementById('quiz' + question).classList.add('closing');
+                setTimeout(() => {
+                    document.getElementById('quiz' + question).classList.add('hidden');
+                    if (question < 3) {
+                        document.getElementById('quiz' + (question + 1)).classList.remove('hidden');
+                    } else {
+                        showCountdown();
+                    }
+                }, 600);
+            } else {
+                document.getElementById('warning' + question).textContent = '❌ Wrong answer! Try again.';
+                showAngry();
+            }
+        }
+        
+        function showAngry() {
+            const angry = document.createElement('div');
+            angry.className = 'angry-popup';
+            angry.textContent = '😠';
+            document.body.appendChild(angry);
+            setTimeout(() => angry.remove(), 500);
+        }
+        
+        function showCountdown() {
+            const messages = [
+                '💕 You know me so well...',
+                '✨ That\'s my patootie!',
+                '🎉 Perfect answers!',
+                '💖 Now for the real question...'
+            ];
+            
+            let index = 0;
+            const countdown = document.createElement('div');
+            countdown.className = 'countdown';
+            countdown.style.fontSize = '3rem';
+            countdown.textContent = messages[index];
+            document.body.appendChild(countdown);
+            
+            const interval = setInterval(() => {
+                index++;
+                if (index < messages.length) {
+                    countdown.textContent = messages[index];
+                } else {
+                    clearInterval(interval);
+                    countdown.remove();
+                    document.querySelector('.container').classList.add('visible');
+                }
+            }, 1500);
+        }
+        
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - 200);
+            const y = Math.random() * (window.innerHeight - 100);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+        
+        function acceptProposal() {
+            const btn = event.target;
+            const rect = btn.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'burst-heart';
+                heart.textContent = ['💖', '💕', '💗', '💝'][Math.floor(Math.random() * 4)];
+                heart.style.left = centerX + 'px';
+                heart.style.top = centerY + 'px';
+                const angle = (Math.PI * 2 * i) / 20;
+                const distance = 300 + Math.random() * 200;
+                heart.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+                heart.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 1200);
+            }
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'transition-overlay';
+            document.body.appendChild(overlay);
+            
+            setTimeout(() => {
+                document.querySelector('.container').innerHTML = '<h1 class="accepted">🎉 Yay! You made my day patootieee! 💕<br><br>Thank you for being my Valentine 💖</h1><button class="gift-btn" onclick="showGift()">Open Your Gift 🎁</button><div id="giftArea"></div>';
+                overlay.remove();
+            }, 1500);
+        }
+        
+        function showGift() {
+            const area = document.getElementById('giftArea');
+            area.innerHTML = '<div class="gift-box" onclick="openGift()">🎁</div>';
+        }
+        
+        function openGift() {
+            const box = document.querySelector('.gift-box');
+            box.classList.add('opening');
+            setTimeout(() => {
+                document.getElementById('giftArea').innerHTML = '<div class="kiss">💋</div>';
+                setTimeout(() => {
+                    document.getElementById('giftArea').innerHTML += '<div class="final-message">✨ You\'re my favorite person in the whole world ✨<br><br>💝 Forever yours, this Valentine\'s and always 💝</div>';
+                }, 800);
+            }, 1000);
+        }
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') validatePassword();
+        });
+        
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 6 + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(heart);
+        }
+    </script>
+</body>
+</html>
