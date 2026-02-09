@@ -3,555 +3,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Rose Day 🌹</title>
+    <title>🍫 Chocolate Day Celebration</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #3d2817 0%, #6b4423 50%, #8b5a3c 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(201, 24, 74, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(255, 179, 198, 0.2) 0%, transparent 70%),
-                linear-gradient(135deg, #ff9a9e 0%, #fad0c4 25%, #ffecd2 50%, #fcb69f 75%, #ff9a9e 100%);
-            background-size: 100% 100%, 100% 100%, 100% 100%, 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            font-family: 'Georgia', serif;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
 
-        @keyframes gradientShift {
-            0%, 100% {
-                background-position: 0% 0%, 0% 0%, 0% 0%, 0% 50%;
-            }
-            50% {
-                background-position: 0% 0%, 0% 0%, 0% 0%, 100% 50%;
-            }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            max-width: 600px;
+            position: relative;
+            z-index: 10;
         }
 
-        .petal {
+        h1 {
+            color: #5d3a1a;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(139, 90, 60, 0.3);
+        }
+
+        .subtitle {
+            color: #8b5a3c;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .chocolate-box {
+            position: relative;
+            width: 400px;
+            height: 350px;
+            margin: 30px auto;
+        }
+
+        .chocolate {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(145deg, #6b4423, #4a2f1a);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(ellipse at center, #ff6b9d 0%, #c9184a 100%);
-            border-radius: 50% 0 50% 0;
-            opacity: 0.7;
-            animation: fall linear infinite;
+        }
+
+        .chocolate:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(139, 90, 60, 0.5);
+        }
+
+        .chocolate.clicked {
+            background: linear-gradient(145deg, #d4a574, #c19a6b);
+            animation: unwrap 0.5s ease;
+        }
+
+        @keyframes unwrap {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2) rotate(10deg); }
+        }
+
+        .message {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f4e4d7, #e8d5c4);
+            border-radius: 15px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+            color: #5d3a1a;
+            font-weight: bold;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .counter {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #6b4423;
+        }
+
+        .reset-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #6b4423, #4a2f1a);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 68, 35, 0.4);
+        }
+
+        .falling-chocolate {
+            position: fixed;
+            font-size: 2em;
+            pointer-events: none;
+            animation: fall linear;
+            z-index: 1;
         }
 
         @keyframes fall {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
+            to { transform: translateY(100vh) rotate(360deg); }
         }
 
-        .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.15;
-            animation: floatShape 20s ease-in-out infinite;
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #fff, #f4e4d7);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            text-align: center;
+            min-width: 350px;
+            animation: popIn 0.5s ease forwards;
         }
 
-        @keyframes floatShape {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            33% {
-                transform: translate(50px, -50px) scale(1.1);
-            }
-            66% {
-                transform: translate(-30px, 30px) scale(0.9);
-            }
+        @keyframes popIn {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(-180deg); }
+            70% { transform: translate(-50%, -50%) scale(1.1) rotate(10deg); }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
         }
 
-        .shape1 {
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, #ff6b9d, #c9184a);
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
+        .popup-emoji {
+            font-size: 5em;
+            margin-bottom: 20px;
+            animation: bounce 0.6s ease infinite;
         }
 
-        .shape2 {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, #ffd4e8, #ffb3c6);
-            bottom: 15%;
-            right: 15%;
-            animation-delay: 5s;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
-        .shape3 {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-            top: 60%;
-            left: 5%;
-            animation-delay: 10s;
+        .popup-text {
+            font-size: 1.5em;
+            color: #5d3a1a;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
 
-        .postcard {
-            width: 90%;
-            max-width: 700px;
-            height: 500px;
-            background: 
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px),
-                linear-gradient(145deg, #fffbfc, #fff5f8);
-            border-radius: 15px;
-            box-shadow: 
-                0 20px 60px rgba(201, 24, 74, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            position: relative;
-            padding: 50px;
-            border: 4px solid #ffb3c6;
-            animation: float 3s ease-in-out infinite;
-            z-index: 10;
-            perspective: 1000px;
-        }
-        
-        .postcard::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 30% 40%, rgba(255, 182, 193, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 70% 60%, rgba(255, 105, 180, 0.08) 0%, transparent 50%);
-            border-radius: 15px;
-            pointer-events: none;
+        .popup-close {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #6b4423, #4a2f1a);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-15px) rotate(1deg);
-            }
-        }
-
-        .page {
-            position: absolute;
+        .overlay {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            opacity: 0;
-            transform: rotateY(-90deg);
-            transition: all 0.8s ease;
-            pointer-events: none;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            display: none;
         }
 
-        .page.active {
-            opacity: 1;
-            transform: rotateY(0deg);
-            pointer-events: auto;
+        .overlay.active {
+            display: block;
         }
 
-        .page.exiting {
-            animation: flipOut 0.8s ease forwards;
-        }
-
-        @keyframes flipOut {
-            to {
-                opacity: 0;
-                transform: rotateY(90deg);
-            }
-        }
-
-        .stamp {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            width: 90px;
-            height: 90px;
-            background: linear-gradient(135deg, #ff6b9d, #c9184a);
-            border: 4px dashed rgba(255, 255, 255, 0.9);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 45px;
-            animation: stamp 0.5s ease-out 0.5s backwards;
-            box-shadow: 0 4px 15px rgba(201, 24, 74, 0.3);
-            transform: rotate(12deg);
-        }
-
-        @keyframes stamp {
-            0% {
-                transform: scale(0) rotate(-45deg);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1) rotate(12deg);
-                opacity: 1;
-            }
-        }
-        
-        .postmark {
-            position: absolute;
-            top: 35px;
-            right: 140px;
-            width: 100px;
-            height: 50px;
-            border: 2px solid rgba(201, 24, 74, 0.4);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 9px;
-            color: rgba(201, 24, 74, 0.6);
-            font-weight: bold;
-            animation: stamp 0.5s ease-out 0.7s backwards;
-            transform: rotate(-8deg);
-        }
-        
-        .postmark span {
-            font-size: 7px;
-            letter-spacing: 1px;
-        }
-
-        .rose-decoration {
-            position: absolute;
-            font-size: 60px;
-            animation: bloom 1s ease-out backwards;
-            filter: drop-shadow(2px 2px 4px rgba(201, 24, 74, 0.3));
-        }
-
-        .rose-decoration.top-left {
-            top: 20px;
-            left: 20px;
-            animation-delay: 0.3s;
-            transform: rotate(-15deg);
-        }
-
-        .rose-decoration.bottom-right {
-            bottom: 20px;
-            right: 120px;
-            animation-delay: 0.5s;
-            transform: rotate(25deg);
-        }
-        
-        .rose-decoration.center-left {
-            top: 50%;
-            left: -10px;
-            font-size: 40px;
-            animation-delay: 0.6s;
-            transform: translateY(-50%) rotate(-30deg);
-            opacity: 0.6;
-        }
-        
-        .rose-decoration.center-right {
-            top: 50%;
-            right: -10px;
-            font-size: 40px;
-            animation-delay: 0.8s;
-            transform: translateY(-50%) rotate(30deg);
-            opacity: 0.6;
-        }
-
-        @keyframes bloom {
-            0% {
-                transform: scale(0) rotate(-180deg);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-        }
-
-        h1 {
-            font-size: 48px;
-            color: #c9184a;
-            margin-bottom: 30px;
-            text-shadow: 
-                2px 2px 4px rgba(255, 179, 198, 0.5),
-                0 0 20px rgba(255, 179, 198, 0.3);
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        .page.active h1 {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        .message {
-            font-size: 22px;
-            line-height: 1.8;
-            color: #6d1b3a;
-            max-width: 500px;
-            font-style: italic;
-            margin-bottom: 20px;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-        }
-
-        .signature {
-            font-size: 28px;
-            color: #c9184a;
+        .bucket-container {
+            display: none;
             margin-top: 30px;
-            font-family: 'Brush Script MT', cursive;
-            text-shadow: 1px 1px 2px rgba(255, 179, 198, 0.5);
-        }
-        
-        .decorative-line {
-            width: 150px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ffb3c6, transparent);
-            margin: 20px auto;
-            position: relative;
-        }
-        
-        .decorative-line::before {
-            content: '❤';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #fff5f8;
-            padding: 0 10px;
-            font-size: 14px;
-            color: #ff6b9d;
+            padding: 30px;
+            background: linear-gradient(135deg, #8b5a3c, #6b4423);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .heart {
-            display: inline-block;
-            color: #ff6b9d;
-            animation: heartbeat 1.5s ease-in-out infinite;
+        .bucket-container.show {
+            display: block;
+            animation: slideUp 0.6s ease;
         }
 
-        @keyframes heartbeat {
-            0%, 100% {
-                transform: scale(1);
-            }
-            25% {
-                transform: scale(1.2);
-            }
-            50% {
-                transform: scale(1);
-            }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .next-btn, .prev-btn {
-            position: absolute;
-            bottom: 30px;
-            background: linear-gradient(135deg, #ff6b9d, #c9184a);
+        .bucket-title {
             color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(201, 24, 74, 0.3);
-            transition: all 0.3s ease;
-            font-family: 'Georgia', serif;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .next-btn {
-            right: 30px;
-        }
-
-        .prev-btn {
-            left: 30px;
-            background: linear-gradient(135deg, #ffb3c6, #ff6b9d);
-        }
-
-        .next-btn:hover, .prev-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(201, 24, 74, 0.4);
-        }
-
-        .page-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+        .collected-chocolates {
             display: flex;
-            gap: 10px;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 3em;
         }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #ffb3c6;
-            transition: all 0.3s ease;
+        .collected-item {
+            animation: popCollect 0.5s ease;
         }
 
-        .dot.active {
-            background: #c9184a;
-            width: 30px;
-            border-radius: 5px;
+        @keyframes popCollect {
+            0% { transform: scale(0) rotate(-180deg); }
+            70% { transform: scale(1.2) rotate(10deg); }
+            100% { transform: scale(1) rotate(0); }
         }
     </style>
 </head>
 <body>
-    <div class="floating-shape shape1"></div>
-    <div class="floating-shape shape2"></div>
-    <div class="floating-shape shape3"></div>
-
-    <div class="postcard">
-        <!-- Page 1: Cover -->
-        <div class="page active" id="page1">
-            <div class="stamp">🌹</div>
-            <div class="postmark">
-                <div>LOVE POST</div>
-                <span>FEB 7 2026</span>
-            </div>
-            <div class="rose-decoration top-left">🌹</div>
-            <div class="rose-decoration bottom-right">🌹</div>
-            <div class="rose-decoration center-left">🌹</div>
-            <div class="rose-decoration center-right">🌹</div>
-            <h1 style="font-size: 64px; margin-top: 80px;">Happy Rose Day</h1>
-            <div class="decorative-line"></div>
-            <p style="font-size: 24px; color: #c9184a; margin-top: 20px;">February 7th, 2026</p>
-            <button class="next-btn" onclick="nextPage()">Open →</button>
+    <div class="container">
+        <h1>🍫 Chocolate Day 🍫</h1>
+        <p class="subtitle">Unwrap the sweetness of love!</p>
+        
+        <div class="chocolate-box" id="chocolateBox"></div>
+        
+        <div class="message" id="message">Click on chocolates to unwrap sweet messages! 💝</div>
+        
+        <div class="counter">Chocolates Unwrapped: <span id="counter">0</span>/8</div>
+        
+        <div class="bucket-container" id="bucketContainer">
+            <div class="bucket-title">🎉 I owe you my patootie 🎉</div>
+            <div class="collected-chocolates" id="collectedChocolates"></div>
         </div>
-
-        <!-- Page 2: Message Part 1 -->
-        <div class="page" id="page2">
-            <div class="rose-decoration top-left">🌹</div>
-            <div class="rose-decoration center-right">🌹</div>
-            <h1>A Rose For You</h1>
-            <div class="decorative-line"></div>
-            <p class="message">
-                Like a rose that blooms with grace and beauty, 
-                you bring color and fragrance to every moment.
-            </p>
-            <p class="message" style="margin-top: 30px;">
-                This rose is a symbol of admiration, warmth, and 
-                the gentle love that grows with each passing day.
-            </p>
-            <button class="prev-btn" onclick="prevPage()">← Back</button>
-            <button class="next-btn" onclick="nextPage()">Continue →</button>
-        </div>
-
-        <!-- Page 3: Message Part 2 -->
-        <div class="page" id="page3">
-            <div class="rose-decoration bottom-right">🌹</div>
-            <div class="rose-decoration center-left">🌹</div>
-            <h1>You Are Special</h1>
-            <div class="decorative-line"></div>
-            <p class="message">
-                In a garden full of flowers, you stand out like the most beautiful rose.
-            </p>
-            <p class="message" style="margin-top: 30px;">
-                Your presence makes the world brighter, warmer, and infinitely more beautiful.
-            </p>
-            <button class="prev-btn" onclick="prevPage()">← Back</button>
-            <button class="next-btn" onclick="nextPage()">Continue →</button>
-        </div>
-
-        <!-- Page 4: Final Message -->
-        <div class="page" id="page4">
-            <div class="rose-decoration top-left">🌹</div>
-            <div class="rose-decoration bottom-right">🌹</div>
-            <div class="rose-decoration center-left">🌹</div>
-            <div class="rose-decoration center-right">🌹</div>
-            <h1>With All My Heart</h1>
-            <div class="decorative-line"></div>
-            <p class="message">
-                May your life be as beautiful as a garden in full bloom <span class="heart">♥</span>
-            </p>
-            <p class="message" style="margin-top: 30px;">
-                Thank you for being the rose in my life.
-            </p>
-            <div class="signature">With love & roses</div>
-            <button class="prev-btn" onclick="prevPage()">← Back</button>
-        </div>
-
-        <div class="page-indicator">
-            <div class="dot active" data-page="1"></div>
-            <div class="dot" data-page="2"></div>
-            <div class="dot" data-page="3"></div>
-            <div class="dot" data-page="4"></div>
-        </div>
+        
+        <button class="reset-btn" onclick="resetGame()">🔄 Reset Chocolates</button>
     </div>
 
+    <div class="overlay" id="overlay"></div>
+
     <script>
-        let currentPage = 1;
-        const totalPages = 4;
+        const messages = [
+            { text: "You're sweeter than chocolate!", emoji: "💖" },
+            { text: "Life with you is delicious!", emoji: "😍" },
+            { text: "You melt my heart!", emoji: "🥰" },
+            { text: "Sweet moments, sweeter memories!", emoji: "🌹" },
+            { text: "You're my favorite flavor!", emoji: "💝" },
+            { text: "Love is like chocolate - irresistible!", emoji: "💕" },
+            { text: "Forever my sweet valentine!", emoji: "💑" },
+            { text: "You're the sweetest treat!", emoji: "🍭" }
+        ];
 
-        function nextPage() {
-            if (currentPage >= totalPages) return;
-            changePage(currentPage + 1);
+        const chocolateEmojis = ['🍫', '🍬', '🍩', '🧁', '🍰', '🎂', '🍪', '🧇'];
+        const heartPositions = [
+            { top: '20px', left: '80px' },
+            { top: '20px', left: '240px' },
+            { top: '90px', left: '20px' },
+            { top: '90px', left: '160px' },
+            { top: '90px', left: '300px' },
+            { top: '180px', left: '80px' },
+            { top: '180px', left: '240px' },
+            { top: '270px', left: '160px' }
+        ];
+
+        let clickedCount = 0;
+        let collectedChocolates = [];
+        const chocolateBox = document.getElementById('chocolateBox');
+        const messageDiv = document.getElementById('message');
+        const counterSpan = document.getElementById('counter');
+        const overlay = document.getElementById('overlay');
+        const bucketContainer = document.getElementById('bucketContainer');
+        const collectedChocolatesDiv = document.getElementById('collectedChocolates');
+
+        function createChocolates() {
+            chocolateBox.innerHTML = '';
+            for (let i = 0; i < 8; i++) {
+                const chocolate = document.createElement('div');
+                chocolate.className = 'chocolate';
+                chocolate.innerHTML = chocolateEmojis[i];
+                chocolate.dataset.index = i;
+                chocolate.style.top = heartPositions[i].top;
+                chocolate.style.left = heartPositions[i].left;
+                chocolate.onclick = unwrapChocolate;
+                chocolateBox.appendChild(chocolate);
+            }
         }
 
-        function prevPage() {
-            if (currentPage <= 1) return;
-            changePage(currentPage - 1);
+        function showPopup(message, emoji) {
+            const popup = document.createElement('div');
+            popup.className = 'popup';
+            popup.innerHTML = `
+                <div class="popup-emoji">${emoji}</div>
+                <div class="popup-text">${message}</div>
+                <button class="popup-close" onclick="closePopup(this)">Sweet! 💝</button>
+            `;
+            document.body.appendChild(popup);
+            overlay.classList.add('active');
         }
 
-        function changePage(newPage) {
-            const current = document.getElementById(`page${currentPage}`);
-            current.classList.remove('active');
-            current.classList.add('exiting');
+        function closePopup(btn) {
+            const popup = btn.closest('.popup');
+            popup.style.animation = 'none';
+            popup.style.transform = 'translate(-50%, -50%) scale(0)';
+            overlay.classList.remove('active');
+            setTimeout(() => popup.remove(), 300);
+        }
+
+        function unwrapChocolate(e) {
+            const chocolate = e.currentTarget;
+            if (chocolate.classList.contains('clicked')) return;
             
-            setTimeout(() => {
-                current.classList.remove('exiting');
-                currentPage = newPage;
-                const next = document.getElementById(`page${currentPage}`);
-                next.classList.add('active');
-                updateIndicator();
-            }, 400);
+            chocolate.classList.add('clicked');
+            const index = parseInt(chocolate.dataset.index);
+            const chocolateEmoji = chocolateEmojis[index];
+            chocolate.innerHTML = '💝';
+            
+            collectedChocolates.push(chocolateEmoji);
+            
+            const msg = messages[index];
+            showPopup(msg.text, msg.emoji);
+            messageDiv.textContent = msg.text;
+            clickedCount++;
+            counterSpan.textContent = clickedCount;
+            
+            createFallingChocolate();
+            
+            if (clickedCount === 8) {
+                setTimeout(() => {
+                    messageDiv.textContent = "🎉 All chocolates unwrapped! You're amazing! 🎉";
+                    showBucket();
+                }, 500);
+            }
         }
 
-        function updateIndicator() {
-            document.querySelectorAll('.dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index + 1 === currentPage);
+        function showBucket() {
+            bucketContainer.classList.add('show');
+            collectedChocolatesDiv.innerHTML = '';
+            collectedChocolates.forEach((emoji, i) => {
+                setTimeout(() => {
+                    const item = document.createElement('span');
+                    item.className = 'collected-item';
+                    item.textContent = emoji;
+                    collectedChocolatesDiv.appendChild(item);
+                }, i * 200);
             });
         }
 
-        // Create falling rose petals
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            petal.style.left = Math.random() * 100 + '%';
-            petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            petal.style.animationDelay = Math.random() * 5 + 's';
-            document.body.appendChild(petal);
+        function createFallingChocolate() {
+            const chocolates = ['🍫', '🍬', '🍩', '🧁', '🍰'];
+            const chocolate = document.createElement('div');
+            chocolate.className = 'falling-chocolate';
+            chocolate.textContent = chocolates[Math.floor(Math.random() * chocolates.length)];
+            chocolate.style.left = Math.random() * 100 + 'vw';
+            chocolate.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(chocolate);
             
-            setTimeout(() => petal.remove(), 10000);
+            setTimeout(() => chocolate.remove(), 5000);
         }
 
-        // Generate petals
-        for (let i = 0; i < 15; i++) {
-            createPetal();
+        function resetGame() {
+            clickedCount = 0;
+            collectedChocolates = [];
+            counterSpan.textContent = '0';
+            messageDiv.textContent = "Click on chocolates to unwrap sweet messages! 💝";
+            bucketContainer.classList.remove('show');
+            collectedChocolatesDiv.innerHTML = '';
+            createChocolates();
         }
 
-        setInterval(createPetal, 800);
+        createChocolates();
+        setInterval(() => Math.random() > 0.7 && createFallingChocolate(), 2000);
     </script>
 </body>
 </html>

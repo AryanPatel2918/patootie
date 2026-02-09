@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Rose Day 🌹</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(201, 24, 74, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 179, 198, 0.2) 0%, transparent 70%),
+                linear-gradient(135deg, #ff9a9e 0%, #fad0c4 25%, #ffecd2 50%, #fcb69f 75%, #ff9a9e 100%);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 0%, 0% 0%, 0% 0%, 0% 50%;
+            }
+            50% {
+                background-position: 0% 0%, 0% 0%, 0% 0%, 100% 50%;
+            }
+        }
+
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(ellipse at center, #ff6b9d 0%, #c9184a 100%);
+            border-radius: 50% 0 50% 0;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: floatShape 20s ease-in-out infinite;
+        }
+
+        @keyframes floatShape {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        .shape1 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #ff6b9d, #c9184a);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #ffd4e8, #ffb3c6);
+            bottom: 15%;
+            right: 15%;
+            animation-delay: 5s;
+        }
+
+        .shape3 {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            top: 60%;
+            left: 5%;
+            animation-delay: 10s;
+        }
+
+        .postcard {
+            width: 90%;
+            max-width: 700px;
+            height: 500px;
+            background: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px),
+                linear-gradient(145deg, #fffbfc, #fff5f8);
+            border-radius: 15px;
+            box-shadow: 
+                0 20px 60px rgba(201, 24, 74, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            position: relative;
+            padding: 50px;
+            border: 4px solid #ffb3c6;
+            animation: float 3s ease-in-out infinite;
+            z-index: 10;
+            perspective: 1000px;
+        }
+        
+        .postcard::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(255, 182, 193, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(255, 105, 180, 0.08) 0%, transparent 50%);
+            border-radius: 15px;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(1deg);
+            }
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transform: rotateY(-90deg);
+            transition: all 0.8s ease;
+            pointer-events: none;
+        }
+
+        .page.active {
+            opacity: 1;
+            transform: rotateY(0deg);
+            pointer-events: auto;
+        }
+
+        .page.exiting {
+            animation: flipOut 0.8s ease forwards;
+        }
+
+        @keyframes flipOut {
+            to {
+                opacity: 0;
+                transform: rotateY(90deg);
+            }
+        }
+
+        .stamp {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #ff6b9d, #c9184a);
+            border: 4px dashed rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            animation: stamp 0.5s ease-out 0.5s backwards;
+            box-shadow: 0 4px 15px rgba(201, 24, 74, 0.3);
+            transform: rotate(12deg);
+        }
+
+        @keyframes stamp {
+            0% {
+                transform: scale(0) rotate(-45deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(12deg);
+                opacity: 1;
+            }
+        }
+        
+        .postmark {
+            position: absolute;
+            top: 35px;
+            right: 140px;
+            width: 100px;
+            height: 50px;
+            border: 2px solid rgba(201, 24, 74, 0.4);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: rgba(201, 24, 74, 0.6);
+            font-weight: bold;
+            animation: stamp 0.5s ease-out 0.7s backwards;
+            transform: rotate(-8deg);
+        }
+        
+        .postmark span {
+            font-size: 7px;
+            letter-spacing: 1px;
+        }
+
+        .rose-decoration {
+            position: absolute;
+            font-size: 60px;
+            animation: bloom 1s ease-out backwards;
+            filter: drop-shadow(2px 2px 4px rgba(201, 24, 74, 0.3));
+        }
+
+        .rose-decoration.top-left {
+            top: 20px;
+            left: 20px;
+            animation-delay: 0.3s;
+            transform: rotate(-15deg);
+        }
+
+        .rose-decoration.bottom-right {
+            bottom: 20px;
+            right: 120px;
+            animation-delay: 0.5s;
+            transform: rotate(25deg);
+        }
+        
+        .rose-decoration.center-left {
+            top: 50%;
+            left: -10px;
+            font-size: 40px;
+            animation-delay: 0.6s;
+            transform: translateY(-50%) rotate(-30deg);
+            opacity: 0.6;
+        }
+        
+        .rose-decoration.center-right {
+            top: 50%;
+            right: -10px;
+            font-size: 40px;
+            animation-delay: 0.8s;
+            transform: translateY(-50%) rotate(30deg);
+            opacity: 0.6;
+        }
+
+        @keyframes bloom {
+            0% {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #c9184a;
+            margin-bottom: 30px;
+            text-shadow: 
+                2px 2px 4px rgba(255, 179, 198, 0.5),
+                0 0 20px rgba(255, 179, 198, 0.3);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .page.active h1 {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .message {
+            font-size: 22px;
+            line-height: 1.8;
+            color: #6d1b3a;
+            max-width: 500px;
+            font-style: italic;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .signature {
+            font-size: 28px;
+            color: #c9184a;
+            margin-top: 30px;
+            font-family: 'Brush Script MT', cursive;
+            text-shadow: 1px 1px 2px rgba(255, 179, 198, 0.5);
+        }
+        
+        .decorative-line {
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffb3c6, transparent);
+            margin: 20px auto;
+            position: relative;
+        }
+        
+        .decorative-line::before {
+            content: '❤';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff5f8;
+            padding: 0 10px;
+            font-size: 14px;
+            color: #ff6b9d;
+        }
+
+        .heart {
+            display: inline-block;
+            color: #ff6b9d;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.2);
+            }
+            50% {
+                transform: scale(1);
+            }
+        }
+
+        .next-btn, .prev-btn {
+            position: absolute;
+            bottom: 30px;
+            background: linear-gradient(135deg, #ff6b9d, #c9184a);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(201, 24, 74, 0.3);
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .next-btn {
+            right: 30px;
+        }
+
+        .prev-btn {
+            left: 30px;
+            background: linear-gradient(135deg, #ffb3c6, #ff6b9d);
+        }
+
+        .next-btn:hover, .prev-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(201, 24, 74, 0.4);
+        }
+
+        .page-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ffb3c6;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #c9184a;
+            width: 30px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    <div class="floating-shape shape3"></div>
+
+    <div class="postcard">
+        <!-- Page 1: Cover -->
+        <div class="page active" id="page1">
+            <div class="stamp">🌹</div>
+            <div class="postmark">
+                <div>LOVE POST</div>
+                <span>FEB 7 2026</span>
+            </div>
+            <div class="rose-decoration top-left">🌹</div>
+            <div class="rose-decoration bottom-right">🌹</div>
+            <div class="rose-decoration center-left">🌹</div>
+            <div class="rose-decoration center-right">🌹</div>
+            <h1 style="font-size: 64px; margin-top: 80px;">Happy Rose Day</h1>
+            <div class="decorative-line"></div>
+            <p style="font-size: 24px; color: #c9184a; margin-top: 20px;">February 7th, 2026</p>
+            <button class="next-btn" onclick="nextPage()">Open →</button>
+        </div>
+
+        <!-- Page 2: Message Part 1 -->
+        <div class="page" id="page2">
+            <div class="rose-decoration top-left">🌹</div>
+            <div class="rose-decoration center-right">🌹</div>
+            <h1>A Rose For You</h1>
+            <div class="decorative-line"></div>
+            <p class="message">
+                Like a rose that blooms with grace and beauty, 
+                you bring color and fragrance to every moment.
+            </p>
+            <p class="message" style="margin-top: 30px;">
+                This rose is a symbol of admiration, warmth, and 
+                the gentle love that grows with each passing day.
+            </p>
+            <button class="prev-btn" onclick="prevPage()">← Back</button>
+            <button class="next-btn" onclick="nextPage()">Continue →</button>
+        </div>
+
+        <!-- Page 3: Message Part 2 -->
+        <div class="page" id="page3">
+            <div class="rose-decoration bottom-right">🌹</div>
+            <div class="rose-decoration center-left">🌹</div>
+            <h1>You Are Special</h1>
+            <div class="decorative-line"></div>
+            <p class="message">
+                In a garden full of flowers, you stand out like the most beautiful rose.
+            </p>
+            <p class="message" style="margin-top: 30px;">
+                Your presence makes the world brighter, warmer, and infinitely more beautiful.
+            </p>
+            <button class="prev-btn" onclick="prevPage()">← Back</button>
+            <button class="next-btn" onclick="nextPage()">Continue →</button>
+        </div>
+
+        <!-- Page 4: Final Message -->
+        <div class="page" id="page4">
+            <div class="rose-decoration top-left">🌹</div>
+            <div class="rose-decoration bottom-right">🌹</div>
+            <div class="rose-decoration center-left">🌹</div>
+            <div class="rose-decoration center-right">🌹</div>
+            <h1>With All My Heart</h1>
+            <div class="decorative-line"></div>
+            <p class="message">
+                May your life be as beautiful as a garden in full bloom <span class="heart">♥</span>
+            </p>
+            <p class="message" style="margin-top: 30px;">
+                Thank you for being the rose in my life.
+            </p>
+            <div class="signature">With love & roses</div>
+            <button class="prev-btn" onclick="prevPage()">← Back</button>
+        </div>
+
+        <div class="page-indicator">
+            <div class="dot active" data-page="1"></div>
+            <div class="dot" data-page="2"></div>
+            <div class="dot" data-page="3"></div>
+            <div class="dot" data-page="4"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 4;
+
+        function nextPage() {
+            if (currentPage >= totalPages) return;
+            changePage(currentPage + 1);
+        }
+
+        function prevPage() {
+            if (currentPage <= 1) return;
+            changePage(currentPage - 1);
+        }
+
+        function changePage(newPage) {
+            const current = document.getElementById(`page${currentPage}`);
+            current.classList.remove('active');
+            current.classList.add('exiting');
+            
+            setTimeout(() => {
+                current.classList.remove('exiting');
+                currentPage = newPage;
+                const next = document.getElementById(`page${currentPage}`);
+                next.classList.add('active');
+                updateIndicator();
+            }, 400);
+        }
+
+        function updateIndicator() {
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === currentPage);
+            });
+        }
+
+        // Create falling rose petals
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + '%';
+            petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            petal.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(petal);
+            
+            setTimeout(() => petal.remove(), 10000);
+        }
+
+        // Generate petals
+        for (let i = 0; i < 15; i++) {
+            createPetal();
+        }
+
+        setInterval(createPetal, 800);
+    </script>
+</body>
+</html>
