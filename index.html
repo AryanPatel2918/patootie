@@ -3,342 +3,618 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Teddy Day 🧸</title>
+    <title>Promise Day - Seal Your Love</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Comic Sans MS', cursive;
-            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe4f1 50%, #ffd6e8 100%);
             min-height: 100vh;
             overflow-x: hidden;
+            padding: 50px 0;
         }
+
         .container {
-            max-width: 1200px;
+            max-width: 900px;
+            width: 90%;
             margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            color: #ff1493;
-            font-size: 3em;
-            margin: 20px 0;
-            text-shadow: 2px 2px 4px rgba(255,105,180,0.3);
-        }
-        .score-board {
-            background: white;
-            padding: 15px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin: 20px 0;
-            display: inline-block;
-        }
-        .score { font-size: 1.5em; color: #ff69b4; font-weight: bold; }
-        .game-area {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             position: relative;
-            height: 400px;
-            background: rgba(255,255,255,0.5);
-            border-radius: 20px;
+        }
+
+        .quote-item {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe8d6 100%);
+            padding: 40px;
+            border-radius: 5px;
             margin: 30px 0;
-            border: 3px dashed #ff69b4;
-            overflow: hidden;
-        }
-        .teddy {
-            width: 80px;
-            height: 80px;
-            font-size: 60px;
-            position: absolute;
-            cursor: grab;
-            transition: transform 0.2s;
-            user-select: none;
-        }
-        .teddy:hover { transform: scale(1.2); }
-        .teddy.dragging { cursor: grabbing; opacity: 0.7; }
-        .basket {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, #ff69b4, #ff1493);
-            border-radius: 50%;
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            color: #333;
+            font-size: 1.2em;
+            line-height: 1.8;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            min-height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3em;
-            box-shadow: 0 8px 20px rgba(255,20,147,0.4);
-            border: 5px solid white;
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            transition: all 0.6s ease-out;
+            border: 3px double #c2185b;
+            position: relative;
+            font-family: 'Courier New', monospace;
+            z-index: 1;
         }
-        .basket.highlight { animation: pulse 0.3s; }
-        @keyframes pulse {
-            0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.1); }
+
+        .quote-item::before {
+            content: '💌';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 40px;
+            opacity: 0.8;
         }
-        .message {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            display: none;
-            animation: fadeIn 1s;
+
+        .quote-item::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border: 3px solid #c2185b;
+            border-radius: 3px;
+            opacity: 0.3;
         }
-        .message.show { display: block; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .quote-item.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
-        .message h2 {
-            color: #ff1493;
-            font-size: 2.5em;
-            margin-bottom: 20px;
+
+        .quote-item p {
+            font-style: italic;
+            color: #8b4513;
+            text-align: center;
         }
-        .message p {
-            color: #666;
-            font-size: 1.3em;
-            line-height: 1.6;
-        }
+
         .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: float 6s infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        h1 {
+            text-align: center;
+            color: #c2185b;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .quote-display {
+            margin: 30px 0;
+        }
+
+        button {
+            background: #c2185b;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(194, 24, 91, 0.3);
+        }
+
+        button:hover {
+            background: #880e4f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(194, 24, 91, 0.4);
+        }
+
+        .quotes-container {
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .quotes-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: repeating-linear-gradient(
+                to bottom,
+                #c2185b 0px,
+                #c2185b 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            z-index: 0;
+        }
+
+        .mailbox {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            font-size: 80px;
+            z-index: 1000;
+            cursor: pointer;
+            transition: transform 0.3s;
+            animation: mailboxPulse 2s infinite;
+        }
+
+        .mailbox:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes mailboxPulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 5px rgba(194, 24, 91, 0.5));
+            }
+            50% {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 15px rgba(194, 24, 91, 0.8));
+            }
+        }
+
+        .mailbox::after {
+            content: '✉️';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 30px;
+            animation: mailBounce 1s infinite;
+        }
+
+        @keyframes mailBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .mailbox-modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 50px 20px;
         }
-        .heart {
+
+        .mailbox-modal.open {
+            display: block;
+        }
+
+        .mailbox-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+        }
+
+        .close-mailbox {
             position: absolute;
+            top: 20px;
+            right: 20px;
             font-size: 30px;
-            animation: float 3s ease-in-out;
-            opacity: 0;
-        }
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-        }
-        .instructions {
-            background: rgba(255,255,255,0.8);
-            padding: 15px;
-            border-radius: 15px;
-            margin: 20px 0;
-            color: #ff1493;
-            font-size: 1.2em;
-        }
-        button {
-            background: linear-gradient(135deg, #ff69b4, #ff1493);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2em;
-            border-radius: 30px;
             cursor: pointer;
-            margin: 20px 10px;
-            box-shadow: 0 4px 15px rgba(255,20,147,0.3);
-            transition: transform 0.2s;
+            background: none;
+            border: none;
+            padding: 0;
         }
-        button:hover { transform: scale(1.05); }
+
+        .mailbox-item {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe8d6 100%);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border: 2px solid #c2185b;
+            font-family: 'Courier New', monospace;
+            color: #8b4513;
+        }
+
+        @keyframes flyToMailbox {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-200px) scale(0.8) rotate(10deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(calc(100vw - 100px), calc(100vh - 100px)) scale(0.1) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        .quote-item.collecting {
+            animation: flyToMailbox 1.5s forwards;
+        }
+
+        .promise-input {
+            margin: 40px 0;
+        }
+
+        .promise-input h3 {
+            color: #c2185b;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #f093fb;
+            border-radius: 15px;
+            font-size: 1em;
+            font-family: 'Georgia', serif;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #c2185b;
+        }
+
+        .promise-list {
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .promise-list::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: repeating-linear-gradient(
+                to bottom,
+                #c2185b 0px,
+                #c2185b 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            z-index: 0;
+        }
+
+        .promise-item {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe8d6 100%);
+            padding: 30px;
+            border-radius: 5px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 3px double #c2185b;
+            font-family: 'Courier New', monospace;
+            z-index: 1;
+        }
+
+        .promise-item::before {
+            content: '💝';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 30px;
+        }
+
+        .promise-item::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #c2185b;
+            border-radius: 3px;
+            opacity: 0.3;
+        }
+
+        .promise-item.collecting {
+            animation: flyToMailbox 1.5s forwards;
+        }
+
+        .delete-btn {
+            background: #e91e63;
+            padding: 8px 15px;
+            font-size: 0.9em;
+            float: right;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .quote-display {
+                font-size: 1.1em;
+                padding: 20px;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="hearts" id="hearts"></div>
+    
     <div class="container">
-        <h1>🧸 Happy Teddy Day! 💕</h1>
+        <h1>💕 Promise Day 💕</h1>
+        <p class="subtitle">February 11 - Seal Your Love with Promises</p>
         
-        <div class="instructions">
-            Drag all the teddies into the basket to unlock your special message! 🎯
+        <div style="text-align: center; margin: 30px 0;">
+            <img src="https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2021/02/pjimage-34-1612964089.jpg" 
+                 alt="Two people making a promise" 
+                 style="max-width: 100%; height: 500px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
         </div>
-
-        <div class="score-board">
-            <div class="score">Teddies Collected: <span id="score">0</span> / <span id="total">10</span></div>
+        
+        <div class="quotes-container" id="quotesContainer"></div>
+        
+        <div class="mailbox" title="Mailbox" onclick="openMailbox()">📮</div>
+        
+        <div class="mailbox-modal" id="mailboxModal">
+            <div class="mailbox-content">
+                <button class="close-mailbox" onclick="closeMailbox()">✖️</button>
+                <h2 style="color: #c2185b; text-align: center; margin-bottom: 30px;">📬 Your Mailbox</h2>
+                <div id="mailboxContent"></div>
+            </div>
         </div>
-
-        <div class="game-area" id="gameArea">
-            <div class="basket">🧺</div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <button onclick="collectQuotes()">📬 Collect All Promises</button>
+            <button onclick="togglePromiseForm()">📝 Make a Promise</button>
         </div>
-
-        <button onclick="resetGame()">🔄 Play Again</button>
-
-        <div class="message" id="message">
-            <h2>🎉 Congratulations! 🎉</h2>
-            <p>🧸💖</p>
-            <p style="margin-top: 20px; font-size: 1.5em; color: #ff1493;">
-                <strong>Happy Teddy Day!</strong><br>
-                I miss you soooooooooooo muchhhhhhhhhhhh my teddy💝
-            </p>
+        
+        <div class="promise-input" id="promiseForm" style="display: none;">
+            <h3>Write Your Promise</h3>
+            <textarea id="promiseText" placeholder="I promise to..."></textarea>
+            <button onclick="savePromise()" style="margin-top: 15px;">💖 Save Promise</button>
         </div>
+        
+        <div class="promise-list" id="promiseList"></div>
+        
+        <div style="text-align: center; margin: 20px 0;" id="collectPromisesBtn"></div>
+        
     </div>
 
     <script>
-        const teddyImages = [
-            'https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f9f8.png',
-            'https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f43b.png',
-            'https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f43c.png',
-            'https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f428.png',
-            'https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f43b-200d-2744-fe0f.png',
-            'https://em-content.zobj.net/source/apple/391/teddy-bear_1f9f8.png',
-            'https://em-content.zobj.net/source/google/387/teddy-bear_1f9f8.png',
-            'https://em-content.zobj.net/source/microsoft/378/teddy-bear_1f9f8.png',
-            'https://em-content.zobj.net/source/samsung/395/teddy-bear_1f9f8.png',
-            'https://em-content.zobj.net/source/whatsapp/396/teddy-bear_1f9f8.png'
+        const quotes = [
+            "I vow to stand by you in every joy and sorrow, to cherish our moments together, and to create a future filled with love and laughter.",
+            "I promise to be your strength when you're weak, your shelter when you need comfort, and your rock when you feel lost.",
+            "I promise I am not leaving hour hands ever, not even while driving",
+            "I promise to fulfill all your wishlist you present",
+            "I promise to not lose a single chance to bring a smile on your face",
+            "I promise to constantly be available to you, to stand by you, and to respect you without conditions."
         ];
-        let score = 0;
-        let total = 10;
-        let draggedElement = null;
-        let offsetX, offsetY;
-        let availableTeddies = [...teddyImages];
 
-        function createTeddy() {
-            const teddy = document.createElement('div');
-            teddy.className = 'teddy';
-            const img = document.createElement('img');
-            const randomIndex = Math.floor(Math.random() * availableTeddies.length);
-            img.src = availableTeddies.splice(randomIndex, 1)[0];
-            img.style.width = '100%';
-            img.style.height = '100%';
-            img.style.pointerEvents = 'none';
-            teddy.appendChild(img);
-            teddy.style.left = Math.random() * 70 + '%';
-            teddy.style.top = Math.random() * 50 + '%';
+        let promises = JSON.parse(localStorage.getItem('promises')) || [];
 
-            // Mouse drag
-            teddy.addEventListener('mousedown', (e) => {
-                draggedElement = teddy;
-                teddy.classList.add('dragging');
-                const rect = teddy.getBoundingClientRect();
-                offsetX = e.clientX - rect.left;
-                offsetY = e.clientY - rect.top;
-                e.preventDefault();
+        function createQuotesList() {
+            const container = document.getElementById('quotesContainer');
+            quotes.forEach((quote, index) => {
+                const quoteDiv = document.createElement('div');
+                quoteDiv.className = 'quote-item';
+                quoteDiv.innerHTML = `<p>${quote}</p>`;
+                quoteDiv.dataset.index = index;
+                container.appendChild(quoteDiv);
             });
+        }
 
-            // Touch drag
-            teddy.addEventListener('touchstart', (e) => {
-                draggedElement = teddy;
-                teddy.classList.add('dragging');
-                const rect = teddy.getBoundingClientRect();
-                const touch = e.touches[0];
-                offsetX = touch.clientX - rect.left;
-                offsetY = touch.clientY - rect.top;
-                e.preventDefault();
+        function handleScroll() {
+            const quoteItems = document.querySelectorAll('.quote-item');
+            quoteItems.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight * 0.8) {
+                    item.classList.add('visible');
+                }
             });
-
-            return teddy;
         }
 
-        document.addEventListener('mousemove', (e) => {
-            if (draggedElement) {
-                const gameArea = document.getElementById('gameArea');
-                const rect = gameArea.getBoundingClientRect();
-                draggedElement.style.left = (e.clientX - rect.left - offsetX) + 'px';
-                draggedElement.style.top = (e.clientY - rect.top - offsetY) + 'px';
-            }
-        });
-
-        document.addEventListener('mouseup', () => {
-            if (draggedElement) {
-                draggedElement.classList.remove('dragging');
-                checkBasketCollision(draggedElement);
-                draggedElement = null;
-            }
-        });
-
-        document.addEventListener('touchmove', (e) => {
-            if (draggedElement) {
-                const gameArea = document.getElementById('gameArea');
-                const rect = gameArea.getBoundingClientRect();
-                const touch = e.touches[0];
-                draggedElement.style.left = (touch.clientX - rect.left - offsetX) + 'px';
-                draggedElement.style.top = (touch.clientY - rect.top - offsetY) + 'px';
-                e.preventDefault();
-            }
-        });
-
-        document.addEventListener('touchend', () => {
-            if (draggedElement) {
-                draggedElement.classList.remove('dragging');
-                checkBasketCollision(draggedElement);
-                draggedElement = null;
-            }
-        });
-
-        function checkBasketCollision(teddy) {
-            const basket = document.querySelector('.basket');
-            const teddyRect = teddy.getBoundingClientRect();
-            const basketRect = basket.getBoundingClientRect();
-
-            if (teddyRect.left < basketRect.right &&
-                teddyRect.right > basketRect.left &&
-                teddyRect.top < basketRect.bottom &&
-                teddyRect.bottom > basketRect.top) {
-                collectTeddy(teddy);
-            }
-        }
-
-        function collectTeddy(teddy) {
-            teddy.remove();
-            score++;
-            document.getElementById('score').textContent = score;
-            
-            const basket = document.querySelector('.basket');
-            basket.classList.add('highlight');
-            setTimeout(() => basket.classList.remove('highlight'), 300);
-
-            createHearts();
-
-            if (score === total) {
-                setTimeout(() => {
-                    document.getElementById('message').classList.add('show');
-                    document.querySelector('.game-area').style.display = 'none';
-                    celebrateWithHearts();
-                }, 500);
-            }
-        }
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('load', handleScroll);
 
         function createHearts() {
             const heartsContainer = document.getElementById('hearts');
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 15; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
-                heart.textContent = '💖';
+                heart.innerHTML = '❤️';
                 heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
                 heartsContainer.appendChild(heart);
-                setTimeout(() => heart.remove(), 3000);
             }
         }
 
-        function celebrateWithHearts() {
-            const heartsContainer = document.getElementById('hearts');
-            for (let i = 0; i < 30; i++) {
+        function displayQuote() {
+            // Not needed anymore
+        }
+
+        function changeQuote() {
+            // Not needed anymore
+        }
+
+        function collectQuotes() {
+            const quoteItems = document.querySelectorAll('.quote-item');
+            quoteItems.forEach((item, index) => {
                 setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.className = 'heart';
-                    heart.textContent = ['💖', '💝', '💕', '💗'][Math.floor(Math.random() * 4)];
-                    heart.style.left = Math.random() * 100 + '%';
-                    heartsContainer.appendChild(heart);
-                    setTimeout(() => heart.remove(), 3000);
-                }, i * 100);
+                    item.classList.add('collecting');
+                }, index * 200);
+            });
+            
+            setTimeout(() => {
+                quoteItems.forEach(item => {
+                    item.classList.remove('collecting', 'visible');
+                    item.style.display = 'none';
+                });
+                
+                setTimeout(() => {
+                    quoteItems.forEach(item => {
+                        item.style.display = 'flex';
+                    });
+                    handleScroll();
+                }, 1000);
+            }, quoteItems.length * 200 + 1500);
+        }
+
+        function togglePromiseForm() {
+            const form = document.getElementById('promiseForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function savePromise() {
+            const text = document.getElementById('promiseText').value.trim();
+            if (text) {
+                promises.push({ text, date: new Date().toLocaleDateString() });
+                localStorage.setItem('promises', JSON.stringify(promises));
+                document.getElementById('promiseText').value = '';
+                displayPromises();
+                togglePromiseForm();
             }
         }
 
-        function initGame() {
-            const gameArea = document.getElementById('gameArea');
-            score = 0;
-            availableTeddies = [...teddyImages];
-            document.getElementById('score').textContent = score;
-            document.getElementById('total').textContent = total;
+        function deletePromise(index) {
+            promises.splice(index, 1);
+            localStorage.setItem('promises', JSON.stringify(promises));
+            displayPromises();
+        }
 
-            for (let i = 0; i < total; i++) {
-                gameArea.appendChild(createTeddy());
+        function displayPromises() {
+            const list = document.getElementById('promiseList');
+            const collectBtn = document.getElementById('collectPromisesBtn');
+            
+            if (promises.length === 0) {
+                list.innerHTML = '';
+                collectBtn.innerHTML = '';
+                return;
             }
+            
+            list.innerHTML = '<h3 style="color: #c2185b; margin-bottom: 20px;">Your Promises</h3>';
+            promises.forEach((promise, index) => {
+                const item = document.createElement('div');
+                item.className = 'promise-item';
+                item.innerHTML = `
+                    <button class="delete-btn" onclick="deletePromise(${index})">Delete</button>
+                    <p style="color: #8b4513;"><strong>${promise.date}</strong></p>
+                    <p style="margin-top: 10px; color: #8b4513; font-style: italic;">${promise.text}</p>
+                `;
+                list.appendChild(item);
+            });
+            
+            collectBtn.innerHTML = '<button onclick="collectPromises()">📬 Collect in your heart</button>';
         }
 
-        function resetGame() {
-            document.querySelectorAll('.teddy').forEach(t => t.remove());
-            document.getElementById('message').classList.remove('show');
-            document.querySelector('.game-area').style.display = 'block';
-            initGame();
+        function collectPromises() {
+            const promiseItems = document.querySelectorAll('.promise-item');
+            promiseItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('collecting');
+                }, index * 200);
+            });
+            
+            setTimeout(() => {
+                promiseItems.forEach(item => {
+                    item.classList.remove('collecting');
+                    item.style.display = 'none';
+                });
+                
+                setTimeout(() => {
+                    promiseItems.forEach(item => {
+                        item.style.display = 'block';
+                    });
+                }, 1000);
+            }, promiseItems.length * 200 + 1500);
         }
 
-        initGame();
+        function openMailbox() {
+            const modal = document.getElementById('mailboxModal');
+            const content = document.getElementById('mailboxContent');
+            
+            let html = '<h3 style="color: #c2185b; margin: 20px 0;">Promise Day</h3>';
+            quotes.forEach(quote => {
+                html += `<div class="mailbox-item"><p style="font-style: italic;">${quote}</p></div>`;
+            });
+            
+            if (promises.length > 0) {
+                html += '<h3 style="color: #c2185b; margin: 30px 0 20px 0;">Your Promises</h3>';
+                promises.forEach(promise => {
+                    html += `<div class="mailbox-item">
+                        <p><strong>${promise.date}</strong></p>
+                        <p style="margin-top: 10px; font-style: italic;">${promise.text}</p>
+                    </div>`;
+                });
+            }
+            
+            content.innerHTML = html;
+            modal.classList.add('open');
+        }
+
+        function closeMailbox() {
+            document.getElementById('mailboxModal').classList.remove('open');
+        }
+
+        createHearts();
+        createQuotesList();
+        displayPromises();
     </script>
 </body>
 </html>
