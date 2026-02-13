@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiss Day Quiz 💋</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 50%, #f67280 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            max-width: 600px;
+            z-index: 10;
+        }
+        h1 { font-size: 2.5em; margin-bottom: 20px; }
+        .game-area {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+        .question {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .option {
+            background: white;
+            color: #ff6b9d;
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1.2em;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .option:hover { opacity: 0.9; }
+        .emoji {
+            font-size: 5em;
+            margin: 20px 0;
+            display: none;
+        }
+        button {
+            background: white;
+            color: #ff6b9d;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .animation-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+        .penguin {
+            position: absolute;
+            width: 80px;
+            animation: runAcross 4s linear, bounce 0.3s infinite;
+        }
+        .kiss-mark {
+            position: absolute;
+            font-size: 4em;
+            opacity: 0;
+            animation: kissAppear 0.5s forwards;
+        }
+        .countdown {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 6em;
+            color: white;
+            z-index: 2000;
+            display: none;
+            font-weight: bold;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+        .kiss-explosion {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1500;
+            display: none;
+        }
+        .exploding-kiss {
+            position: absolute;
+            font-size: 3em;
+            animation: explode 2.5s forwards;
+        }
+        .floating-kiss {
+            position: absolute;
+            font-size: 2em;
+            animation: float 4s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        @keyframes runAcross {
+            0% { left: -100px; bottom: 10%; }
+            15% { left: 30%; bottom: 80%; }
+            30% { left: 60%; bottom: 20%; }
+            45% { left: 20%; bottom: 60%; }
+            60% { left: 80%; bottom: 75%; }
+            75% { left: 50%; bottom: 30%; }
+            90% { left: 90%; bottom: 85%; }
+            100% { left: 110%; bottom: 50%; }
+        }
+        @keyframes kissAppear {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.3); }
+            100% { opacity: 0.9; transform: scale(1); }
+        }
+        @keyframes explode {
+            0% { transform: translate(0, 0) scale(0); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1); opacity: 0.8; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="animation-screen" id="animScreen">
+        <img class="penguin" id="penguin" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f427.svg" alt="penguin">
+    </div>
+
+    <div class="countdown" id="countdown"></div>
+    <div class="kiss-explosion" id="kissExplosion"></div>
+
+    <div class="container" id="mainContent" style="display: none;">
+        <h1>💋 Kiss Day Quiz 💋</h1>
+        <div class="game-area">
+            <div id="game">
+                <div class="emoji" id="emoji"></div>
+                <div class="question" id="question">Btw which one got first? Do record and let me know 💋</div>
+                <div class="options">
+                    <button class="option" onclick="checkAnswer(0)">Left Cheek</button>
+                    <button class="option" onclick="checkAnswer(1)">Right Cheek</button>
+                    <button class="option" onclick="checkAnswer(2)">Forehead</button>
+                </div>
+            </div>
+            <div id="celebration" style="display: none;">
+                <h2 style="font-size: 3em;">🎉 Happy Kiss Day! 🎉</h2>
+                <p style="font-size: 1.8em; margin: 30px 0;">💋💕💋💕💋</p>
+                <button onclick="location.reload()">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const positions = [
+            { left: '25%', top: '15%', delay: 600 },
+            { left: '55%', top: '75%', delay: 1200 },
+            { left: '15%', top: '40%', delay: 1800 },
+            { left: '75%', top: '25%', delay: 2400 },
+            { left: '45%', top: '65%', delay: 3000 },
+            { left: '85%', top: '15%', delay: 3600 }
+        ];
+
+        positions.forEach(pos => {
+            setTimeout(() => {
+                const mark = document.createElement('div');
+                mark.className = 'kiss-mark';
+                mark.textContent = '💋';
+                mark.style.left = pos.left;
+                mark.style.top = pos.top;
+                document.getElementById('animScreen').appendChild(mark);
+            }, pos.delay);
+        });
+
+        setTimeout(() => {
+            document.getElementById('animScreen').style.display = 'none';
+            startCountdown();
+        }, 4500);
+
+        function startCountdown() {
+            const countdown = document.getElementById('countdown');
+            countdown.style.display = 'block';
+            const words = ['Close', 'Your', 'Eyes'];
+            let i = 0;
+            
+            countdown.textContent = words[i];
+            i++;
+            
+            const interval = setInterval(() => {
+                if (i < words.length) {
+                    countdown.textContent = words[i];
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    countdown.style.display = 'none';
+                    showKissExplosion();
+                }
+            }, 1000);
+        }
+
+        function showKissExplosion() {
+            const explosion = document.getElementById('kissExplosion');
+            explosion.style.display = 'block';
+            
+            for (let i = 0; i < 500; i++) {
+                const kiss = document.createElement('div');
+                kiss.className = 'exploding-kiss';
+                kiss.textContent = '💋';
+                kiss.style.left = '50%';
+                kiss.style.top = '50%';
+                kiss.style.setProperty('--tx', `${(Math.random() - 0.5) * window.innerWidth * 2}px`);
+                kiss.style.setProperty('--ty', `${(Math.random() - 0.5) * window.innerHeight * 2}px`);
+                kiss.style.animationDelay = `${Math.random() * 0.8}s`;
+                explosion.appendChild(kiss);
+            }
+
+            setTimeout(() => {
+                explosion.style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            }, 3500);
+        }
+
+        function checkAnswer(selected) {
+            document.getElementById('game').style.display = 'none';
+                document.getElementById('celebration').style.display = 'block';
+                createFloatingKisses();
+        }
+
+        function createFloatingKisses() {
+            for (let i = 0; i < 20; i++) {
+                const kiss = document.createElement('div');
+                kiss.className = 'floating-kiss';
+                kiss.textContent = '💋';
+                kiss.style.left = `${Math.random() * 100}%`;
+                kiss.style.top = `${Math.random() * 100}%`;
+                kiss.style.animationDelay = `${Math.random() * 2}s`;
+                document.body.appendChild(kiss);
+            }
+        }
+    </script>
+</body>
+</html>
