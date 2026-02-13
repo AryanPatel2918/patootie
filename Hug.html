@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hug Day Word Game 💝</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 50%, #f67280 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            max-width: 600px;
+        }
+        h1 { font-size: 2.5em; margin-bottom: 20px; }
+        .game-area {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+        .jumbled-word {
+            font-size: 3em;
+            letter-spacing: 10px;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+        .people {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            height: 80px;
+        }
+        .person {
+            font-size: 3em;
+            transition: transform 1s ease-in-out;
+        }
+        input {
+            padding: 15px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 10px;
+            width: 80%;
+            text-align: center;
+        }
+        button {
+            background: white;
+            color: #ff6b9d;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        button:hover { opacity: 0.9; }
+        .celebration {
+            display: none;
+            animation: fadeIn 1s;
+        }
+        .celebration img {
+            max-width: 100%;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        .popup {
+            display: none;
+            animation: fadeIn 1s;
+        }
+        .popup input {
+            margin-top: 20px;
+        }
+        .popup button {
+            margin-top: 15px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💝 Hug Day Word Challenge 💝</h1>
+        <div class="game-area">
+            <div id="game">
+                <div class="people">
+                    <div class="person" id="person1">🧑</div>
+                    <div class="person" id="person2">👩</div>
+                </div>
+                <p style="font-size: 1.3em; margin-bottom: 20px;">Unscramble this word (<span id="current">1</span>/3):</p>
+                <div class="jumbled-word" id="jumbled"></div>
+                <input type="text" id="answer" placeholder="Type your answer here" />
+                <br>
+                <button onclick="checkAnswer()">Submit</button>
+                <p id="hint" style="margin-top: 15px; font-size: 1.1em;"></p>
+            </div>
+            <div class="popup" id="popup">
+                <h2 id="popupText" style="font-size: 2em; margin-bottom: 20px;">Ahi aav!</h2>
+                <input type="text" id="popupInput" placeholder="Type here..." />
+                <br>
+                <button onclick="handlePopup()">Submit</button>
+            </div>
+            <div class="celebration" id="celebration">
+                <h2 style="font-size: 2.5em; margin-bottom: 20px;">Giving you a Hug my patootie</h2>
+                <img src="https://img.freepik.com/premium-vector/happy-hug-day-national-hugging-day-illustration-hug-day-concept-background_948175-2390.jpg?w=360" alt="Hug Day Celebration" />
+                <!-- <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=400&fit=crop" alt="Happy Hug Day" style="margin-top: 15px;" /> -->
+                <p style="font-size: 1.5em; margin-top: 25px;">Happy Hug Day! 🤗💕</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const words = [
+            { jumbled: "EITUC", answer: "CUTIE" },
+            { jumbled: "OOAETPIT", answer: "PATOOTIE" },
+            { jumbled: "IVGE EM A UGH", answer: "GIVE ME A HUG" }
+        ];
+        let currentIndex = 0;
+        let popupCount = 0;
+        const popupTexts = ["Ahi aav!", "aur najik", "aur najik", "aavi gai?"];
+        
+        document.getElementById('jumbled').textContent = words[0].jumbled;
+        
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answer').value.toUpperCase().trim();
+            const hint = document.getElementById('hint');
+            
+            if (userAnswer === words[currentIndex].answer) {
+                currentIndex++;
+                
+                if (currentIndex < words.length) {
+                    const distance = currentIndex * 100;
+                    document.getElementById('person1').style.transform = `translateX(${distance}px)`;
+                    document.getElementById('person2').style.transform = `translateX(-${distance}px)`;
+                    document.getElementById('answer').value = '';
+                    document.getElementById('jumbled').textContent = words[currentIndex].jumbled;
+                    document.getElementById('current').textContent = currentIndex + 1;
+                    hint.textContent = "✅ Correct!";
+                    hint.style.color = '#90ee90';
+                } else {
+                    document.querySelector('.people').innerHTML = '<div style="font-size: 5em;">🤗</div>';
+                    setTimeout(() => {
+                        document.getElementById('game').style.display = 'none';
+                        document.getElementById('popup').style.display = 'block';
+                    }, 1500);
+                }
+            } else {
+                hint.textContent = "❌ Try again!";
+                hint.style.color = '#ffeb3b';
+            }
+        }
+        
+        function handlePopup() {
+            popupCount++;
+            document.getElementById('popupInput').value = '';
+            
+            if (popupCount < 4) {
+                document.getElementById('popupText').textContent = popupTexts[popupCount];
+            } else {
+                document.getElementById('popup').style.display = 'none';
+                document.getElementById('celebration').innerHTML = '<div style="font-size: 6em; margin: 50px 0;">🫂🫂🫂</div><h2 style="font-size: 2.5em; margin-bottom: 20px;">Giving you hugs my patootie</h2><img src="https://img.freepik.com/premium-vector/happy-hug-day-national-hugging-day-illustration-hug-day-concept-background_948175-2390.jpg?w=360" alt="Happy Hug Day" style="margin-top: 15px;" /><p style="font-size: 1.5em; margin-top: 25px;">Happy Hug Day! 🤗💕</p>';
+                document.getElementById('celebration').style.display = 'block';
+            }
+        }
+        
+        document.getElementById('answer').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkAnswer();
+        });
+        
+        document.getElementById('popupInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handlePopup();
+        });
+    </script>
+</body>
+</html>
