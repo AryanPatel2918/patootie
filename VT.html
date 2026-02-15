@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Cutie ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 2s;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            animation: fadeIn 3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-family: 'Great Vibes', cursive;
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 3rem;
+            color: #764ba2;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline svg {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            height: 100%;
+            width: 100px;
+            z-index: 0;
+        }
+
+        .timeline svg path {
+            fill: none;
+            stroke: url(#gradient);
+            stroke-width: 4;
+        }
+
+        .milestone {
+            display: flex;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .milestone:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .milestone-content {
+            width: 45%;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .milestone-content.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .milestone-date {
+            font-size: 1.2rem;
+            color: #764ba2;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .milestone-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .milestone-content p {
+            font-size: 1.3rem;
+        }
+
+        .milestone-image {
+            width: 100%;
+            height: 200px;
+            background: #ddd;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        .milestone::after {
+            content: '❤️';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 4px solid #764ba2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .letter {
+            background: #faf8f3;
+            padding: 4rem;
+            border: 2px solid #d4af37;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .letter::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid #d4af37;
+            pointer-events: none;
+        }
+
+        .letter-content {
+            font-size: 1.2rem;
+            line-height: 2;
+            text-align: justify;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            text-align: right;
+            margin-top: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .gift-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .gift-box {
+            display: inline-block;
+            margin-top: 2rem;
+        }
+
+        .gift-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-reveal {
+            background: white;
+            color: #f5576c;
+        }
+
+        .btn-later {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .gift-content {
+            display: none;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: white;
+            color: #333;
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 1s;
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            animation: fadeIn 0.3s;
+        }
+
+        .popup-box h3 {
+            color: #f5576c;
+            margin-bottom: 1.5rem;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+        }
+
+        .popup-box p {
+            color: #333;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .popup-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .popup-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .popup-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .popup-btn-yes {
+            background: #f5576c;
+            color: white;
+        }
+
+        .popup-btn-no {
+            background: #ddd;
+            color: #333;
+        }
+
+        .suspense-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .suspense-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 2rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        .hearts-container {
+            font-size: 3rem;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .gift-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gift-popup-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 90%;
+            max-height: 90%;
+            animation: zoomIn 0.5s;
+        }
+
+        .gift-popup-content h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: #f5576c;
+            margin-bottom: 1rem;
+        }
+
+        .slider-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .slider-container img {
+            max-width: 100%;
+            max-height: 60vh;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: none;
+        }
+
+        .slider-container img.active {
+            display: block;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(245, 87, 108, 0.8);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .slider-btn:hover {
+            background: #f5576c;
+        }
+
+        .slider-btn.prev {
+            left: -50px;
+        }
+
+        .slider-btn.next {
+            right: -50px;
+        }
+
+        .slider-dots {
+            margin-top: 1rem;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: #f5576c;
+        }
+
+        .close-gift {
+            margin-top: 1.5rem;
+            padding: 1rem 2rem;
+            background: #f5576c;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .close-gift:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .slider-btn.prev { left: 10px; }
+            .slider-btn.next { right: 10px; }
+        }
+
+        .gift-emoji {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        .scroll-indicator svg {
+            width: 50px;
+            height: 50px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        .scroll-indicator p {
+            color: white;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .timeline::before { left: 20px; }
+            .milestone { flex-direction: column !important; }
+            .milestone-content { width: 100%; margin-left: 40px; }
+            .milestone::after { left: 20px; }
+            .letter { padding: 2rem; }
+        }
+        .menu-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            color: #ff1744;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            font-weight: bold;
+        }
+        .menu-btn:hover {
+            background: #ff1744;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-btn" onclick="location.href='index.html'">🏠 Main Menu</button>
+    <div class="hero">
+        <h1>For Drashti ❤️</h1>
+        <p>Our Journey Together</p>
+        <div class="scroll-indicator" onclick="document.querySelector('.section').scrollIntoView({behavior: 'smooth'})">
+            <svg viewBox="0 0 50 50">
+                <path d="M 25 10 Q 25 5, 20 10 T 15 20" stroke-dasharray="2,2"/>
+                <path d="M 25 10 Q 25 5, 30 10 T 35 20" stroke-dasharray="2,2"/>
+                <polyline points="15,25 25,35 35,25" stroke-width="3"/>
+                <polyline points="15,32 25,42 35,32" stroke-width="3"/>
+            </svg>
+            <p>Scroll Down</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <h2>Our Milestones</h2>
+            <div class="timeline">
+                <svg preserveAspectRatio="none" viewBox="0 0 100 1600">
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M 50,0 Q 30,100 50,200 T 50,400 T 50,600 T 50,800 T 50,1000 T 50,1200 T 50,1400 T 50,1600" />
+                </svg>
+                <div class="milestone">
+                    <div class="milestone-content">
+                        <div class="milestone-date">18/05/2025</div>
+                        <div class="milestone-title">D Day</div>
+                        <p style="text-align: right;">Hey, just saying Hi!!!! How have you been?</p>
+                        <p>Hey👋🏻, aaryan,</p>
+                        <p>I m good 😊</p>
+                        <p>What abt u?</p>
+
+                        <!-- <div class="milestone-image">Add your photo here</div> -->
+                    </div>
+                </div>
+
+                <div class="milestone">
+                    <div class="milestone-content">
+                        <div class="milestone-date">27/09/2025</div>
+                        <div class="milestone-title">First Date</div>
+                        <p>A moment I'll never forget... Shy me!!!🫠</p>
+                        <p>Place: Cafezza</p>
+                        <!-- <div class="milestone-image">Add your photo here</div> -->
+                    </div>
+                </div>
+
+                <div class="milestone">
+                    <div class="milestone-content">
+                        <div class="milestone-date">04/09/2025</div>
+                        <div class="milestone-title">Third Date: Garba night</div>
+                        <p>Special memory when I hold your hand for the first time, again shy me!!!🫠</p>
+                        <!-- <div class="milestone-image">Add your photo here</div> -->
+                    </div>
+                </div>
+
+                <div class="milestone">
+                    <div class="milestone-content">
+                        <div class="milestone-date">03/11/2025</div>
+                        <div class="milestone-title">DA Visit Day</div>
+                        <p>Uffffffffffffff...</p>
+                        <!-- <div class="milestone-image">Add your photo here</div> -->
+                    </div>
+                </div>
+
+                <div class="milestone">
+                    <div class="milestone-content">
+                        <div class="milestone-date">15/12/2025</div>
+                        <div class="milestone-title">Mumbai</div>
+                        <p>The whole day together, holding each others hand. Best moment for us. Specially last rickshaw ride to airport</p>
+                        <!-- <div class="milestone-image">Add your photo here</div> -->
+                    </div>
+                </div>
+
+                <div class="milestone">
+                    <div class="milestone-content">
+                        <div class="milestone-date">**/**/****</div>
+                        <div class="milestone-title">Us together</div>
+                        <p>All the moments that we were, are and will be together always special to me</p>
+                        <!-- <div class="milestone-image">Add your photo here</div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <h2>A Letter for You</h2>
+            <div class="letter">
+                <div class="letter-content">
+                    <p>My Dearest Cutie,</p>
+                    <br>
+                    <p>Writing this with my emotions, my day starts with you and ends with you. You are my go to place and person so thanking you for being there with me all the time.</p>
+                    <br>
+                    <p>Every moment we've shared, every laugh, every conversation or panchat🤭 we say, has been a treasure I hold close to my heart. You've shown me what it means to truly connect with someone, to feel understood and cherished.</p>
+                    <br>
+                    <p>This Valentine's Day, I want you to know that you are incredibly special to me. Here's to us, to our journey, and to all the beautiful moments yet to come.</p>
+                    <br>
+                    <p style="color: rgb(199 14 0);">Happy Valentine's Day</p>
+                    <br>
+                    <div class="signature">Forever yours,<br>motlu ❤️</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gift-section">
+        <h2 style="color: white;">I Have Something Special for You</h2>
+        <div class="gift-emoji">🎁</div>
+        <p style="font-size: 1.3rem;">Would you like to reveal your gift now, or wait until we meet?</p>
+        <div class="gift-buttons">
+            <button class="btn btn-reveal" onclick="revealGift()">Reveal Now! 💝</button>
+            <button class="btn btn-later" onclick="saveLater()">Save for Later 💕</button>
+        </div>
+        <div class="gift-content" id="giftContent">
+            <h3 style="color: #f5576c; margin-bottom: 1rem;">Your Gift Is...</h3>
+            <p style="font-size: 1.2rem; line-height: 1.8;">
+                [Write your gift description here - it could be a trip, a special item, an experience, or anything meaningful you want to give DXYZ]
+            </p>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popup">
+        <div class="popup-box">
+            <h3>Are you sure? 💝</h3>
+            <p>Do you really want to see your gift now?</p>
+            <div class="popup-buttons">
+                <button class="popup-btn popup-btn-yes" onclick="confirmReveal()">Yes, Show Me! 💕</button>
+                <button class="popup-btn popup-btn-no" onclick="cancelReveal()">Not Yet</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="laterPopup">
+        <div class="popup-box">
+            <h3>Haiin, Sache?? 💕</h3>
+            <p>joi le have...</p>
+            <button class="popup-btn popup-btn-yes" onclick="closeLaterPopup()">Okay 💝</button>
+        </div>
+    </div>
+
+    <div class="suspense-overlay" id="suspenseOverlay">
+        <div class="suspense-text">Preparing your gift...</div>
+        <div class="hearts-container">💝 ❤️ 💕</div>
+    </div>
+
+    <div class="gift-popup" id="giftPopup">
+        <div class="gift-popup-content">
+            <h3>Happy Valentine's Day! 💝</h3>
+            <div class="slider-container">
+                <button class="slider-btn prev" onclick="changeSlide(-1)">‹</button>
+                <img src="1000060064.jpg" class="active" alt="Gift 1">
+                <img src="1000060063.jpg" alt="Gift 2">
+                <button class="slider-btn next" onclick="changeSlide(1)">›</button>
+            </div>
+            <div class="slider-dots">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+            </div>
+            <button class="close-gift" onclick="closeGiftPopup()">Close 💕</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+
+        function revealGift() {
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        function confirmReveal() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('suspenseOverlay').style.display = 'flex';
+            
+            setTimeout(() => {
+                document.getElementById('suspenseOverlay').style.display = 'none';
+                document.getElementById('giftPopup').style.display = 'flex';
+            }, 3000);
+        }
+
+        function closeGiftPopup() {
+            document.getElementById('giftPopup').style.display = 'none';
+            currentSlideIndex = 0;
+            showSlide(0);
+        }
+
+        function changeSlide(n) {
+            currentSlideIndex += n;
+            const slides = document.querySelectorAll('.slider-container img');
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(n) {
+            currentSlideIndex = n;
+            showSlide(n);
+        }
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slider-container img');
+            const dots = document.querySelectorAll('.dot');
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[n].classList.add('active');
+            dots[n].classList.add('active');
+        }
+
+        function cancelReveal() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        function saveLater() {
+            document.getElementById('laterPopup').style.display = 'flex';
+        }
+
+        function closeLaterPopup() {
+            document.getElementById('laterPopup').style.display = 'none';
+        }
+
+        function revealOnScroll() {
+            const milestones = document.querySelectorAll('.milestone-content');
+            milestones.forEach((milestone, index) => {
+                const rect = milestone.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight * 0.8) {
+                    setTimeout(() => {
+                        milestone.classList.add('revealed');
+                    }, index * 300);
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+    </script>
+</body>
+</html>

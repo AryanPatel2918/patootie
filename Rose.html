@@ -415,9 +415,29 @@
             width: 30px;
             border-radius: 5px;
         }
+        .menu-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            color: #ff1744;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            font-weight: bold;
+        }
+        .menu-btn:hover {
+            background: #ff1744;
+            color: white;
+        }
     </style>
 </head>
 <body>
+    <button class="menu-btn" onclick="location.href='index.html'">🏠 Main Menu</button>
     <div class="floating-shape shape1"></div>
     <div class="floating-shape shape2"></div>
     <div class="floating-shape shape3"></div>
