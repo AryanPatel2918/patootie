@@ -1,192 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Journey</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-        .modal.hidden {
-            display: none;
-        }
-        .login-box {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-        .login-box h2 {
-            color: #ff6b9d;
-            margin-bottom: 1.5rem;
-        }
-        .login-box input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #ff6b9d;
-            border-radius: 8px;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-        .login-box button {
-            background: #ff6b9d;
-            color: white;
-            border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-        .login-box button:hover {
-            background: #ff1744;
-        }
-        .error {
-            color: #ff1744;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-        .home-container {
-            display: none;
-            text-align: center;
-            color: white;
-            max-width: 800px;
-            padding: 2rem;
-        }
-        .home-container.visible {
-            display: block;
-        }
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 2rem;
-        }
-        .nav-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .nav-card {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 1.5rem;
-            border-radius: 15px;
-            text-decoration: none;
-            color: #ff1744;
-            font-size: 1.2rem;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .nav-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        .heart {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #ff1744;
-            transform: rotate(45deg);
-            animation: float 6s ease-in-out infinite;
-        }
-        .heart::before,
-        .heart::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #ff1744;
-            border-radius: 50%;
-        }
-        .heart::before {
-            top: -10px;
-            left: 0;
-        }
-        .heart::after {
-            left: 10px;
-            top: 0;
-        }
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>D&D Art Studio</title>
+  <link rel="stylesheet" href="/styles/main.css" />
 </head>
 <body>
-    <div id="loginModal" class="modal">
-        <div class="login-box">
-            <h2>💝 Enter Password</h2>
-            <input type="password" id="passwordInput" placeholder="Password">
-            <button onclick="validatePassword()">Enter</button>
-            <div id="error" class="error"></div>
-        </div>
+  <div id="canvas-container"></div>
+
+  <!-- Blocker / Instructions overlay -->
+  <div id="blocker">
+    <div id="instructions">
+      <img src="/paintings/logo.jpg" alt="D&D Art Studio" id="studio-logo" />
+      <h1>D&D Art Studio</h1>
+      <p>Click to enter</p>
+      <p class="controls-info">
+        Move: WASD / Arrow Keys<br/>
+        Look: Mouse<br/>
+        ESC: Release cursor
+      </p>
     </div>
-    <div class="home-container" id="homeContainer">
-        <h1>💕 Valentine's Journey 💕</h1>
-        <p style="font-size: 1.5rem; margin-bottom: 2rem;">Choose your destination</p>
-        <div class="nav-grid">
-            <a href="Day0.html" class="nav-card">💖 Day 0</a>
-            <a href="Rose.html" class="nav-card">🌹 Rose</a>
-            <a href="Choco.html" class="nav-card">🍫 Chocolate</a>
-            <a href="Teddy.html" class="nav-card">🧸 Teddy</a>
-            <a href="Promise.html" class="nav-card">🤝 Promise</a>
-            <a href="Hug.html" class="nav-card">🤗 Hug</a>
-            <a href="Kiss.html" class="nav-card">💋 Kiss</a>
-            <a href="VT.html" class="nav-card">💝 Valentine</a>
-            <a href="FirstMessage.html" class="nav-card">💬 First Message</a>
-        </div>
-    </div>
-    <script>
-        const correctPassword = 'b2lpaQ==';
-        
-        function validatePassword() {
-            const input = document.getElementById('passwordInput').value;
-            const encoded = btoa(input);
-            
-            if (encoded === correctPassword) {
-                document.getElementById('loginModal').classList.add('hidden');
-                document.getElementById('homeContainer').classList.add('visible');
-            } else {
-                document.getElementById('error').textContent = 'Incorrect password!';
-            }
-        }
-        
-        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') validatePassword();
-        });
-        
-        for (let i = 0; i < 15; i++) {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDelay = Math.random() * 6 + 's';
-            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            document.body.appendChild(heart);
-        }
-    </script>
+  </div>
+
+  <!-- Room name display -->
+  <div id="room-label" class="hidden"></div>
+
+  <!-- Artwork info panel -->
+  <div id="artwork-panel" class="hidden">
+    <h3 id="panel-title"></h3>
+    <p id="panel-artist"></p>
+    <p id="panel-desc"></p>
+  </div>
+
+  <!-- Crosshair -->
+  <div id="crosshair">+</div>
+
+  <!-- Minimap -->
+  <canvas id="minimap" width="200" height="200"></canvas>
+
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
