@@ -92,7 +92,7 @@ export function setupArtworks(scene) {
       });
 
       // Load texture from local file
-      const imgUrl = art.img;
+      const imgUrl = import.meta.env.BASE_URL + art.img.replace(/^\//, '');
       textureLoader.load(imgUrl, (tex) => {
         tex.colorSpace = THREE.SRGBColorSpace;
         canvasMat.map = tex;
