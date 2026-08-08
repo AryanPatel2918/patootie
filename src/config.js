@@ -172,49 +172,56 @@ export const CONNECTIONS = [
   { from: 'Impressionist Garden', to: 'Royal Collection', axis: 'z' },
 ];
 
-// Artwork data per room — featuring D&D Art Studio originals
+// Artwork data per room — featuring D&D Art Studio originals, themed by room
 export const ARTWORKS = {
+  // Renaissance/Classical welcome hall - portraits, still life, classical compositions
   'Grand Lobby': [
     { title: 'D&D Art Studio', artist: 'DevDrashti Art Studio', desc: 'Welcome — explore 7 uniquely themed rooms.', wall: 'west', offset: 0, w: 2.0, h: 2.0, img: '/paintings/logo.jpg' },
-    { title: 'Artwork I', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'north', offset: -3, w: 2.0, h: 2.0, img: '/paintings/dd-01.jpg' },
-    { title: 'Artwork II', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'north', offset: 3, w: 2.0, h: 2.0, img: '/paintings/dd-02.jpg' },
-    { title: 'Artwork III', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'south', offset: -3, w: 2.0, h: 2.0, img: '/paintings/dd-03.jpg' },
-    { title: 'Artwork IV', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'south', offset: 3, w: 2.0, h: 2.0, img: '/paintings/dd-04.jpg' },
+    { title: 'Shiva & Parvati', artist: 'Drashti, 2024', desc: 'Modern flowing depiction of the divine couple in blue and white.', wall: 'north', offset: -3, w: 2.2, h: 1.7, img: '/paintings/dd-03.jpg' },
+    { title: 'Portrait Study', artist: 'Drashti', desc: 'An expressive oil portrait capturing warmth and personality.', wall: 'north', offset: 3, w: 1.8, h: 2.2, img: '/paintings/dd-07.jpg' },
+    { title: 'Orchids & Red Silk', artist: 'Drashti', desc: 'Classical still life — porcelain vase draped in crimson with white orchids.', wall: 'south', offset: -3, w: 1.8, h: 2.2, img: '/paintings/dd-21.jpg' },
+    { title: 'Two-Point Perspective', artist: 'Drashti', desc: 'Architectural pencil study with masterful perspective technique.', wall: 'south', offset: 3, w: 2.2, h: 1.6, img: '/paintings/dd-22.jpg' },
   ],
+  // Deep midnight blue walls - expressive, dark, intense works
   'Van Gogh Wing': [
-    { title: 'Artwork V', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'north', offset: -3, w: 2.0, h: 2.0, img: '/paintings/dd-05.jpg' },
-    { title: 'Artwork VI', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'north', offset: 3, w: 2.0, h: 2.0, img: '/paintings/dd-06.jpg' },
-    { title: 'Artwork VII', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'south', offset: -3, w: 2.0, h: 2.0, img: '/paintings/dd-07.jpg' },
-    { title: 'Artwork VIII', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'south', offset: 3, w: 2.0, h: 2.0, img: '/paintings/dd-08.jpg' },
+    { title: 'City in Rain', artist: 'Devanshi', desc: 'Abstract expressionist cityscape with bold brushstrokes.', wall: 'north', offset: -3, w: 1.8, h: 2.2, img: '/paintings/dd-12.jpg' },
+    { title: 'The Gaze', artist: 'Drashti', desc: 'Hyper-realistic graphite eye study with a single tear.', wall: 'north', offset: 3, w: 2.4, h: 1.6, img: '/paintings/dd-14.jpg' },
+    { title: 'Midnight Trees', artist: 'D&D Art Studio, 2023', desc: 'White scratch-art revealing ghostly trees against the void.', wall: 'south', offset: -3, w: 1.8, h: 2.2, img: '/paintings/dd-15.jpg' },
+    { title: 'Golden Mandala', artist: 'D&D Art Studio', desc: 'Concentric gold seeds on black — meditative geometry.', wall: 'south', offset: 3, w: 1.8, h: 1.8, img: '/paintings/dd-08.jpg' },
   ],
+  // Clean white walls - bold colors, geometric, modern pieces
   'Modern Abstract': [
-    { title: 'Artwork IX', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'north', offset: -3, w: 2.0, h: 2.0, img: '/paintings/dd-09.jpg' },
-    { title: 'Artwork X', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'north', offset: 3, w: 2.0, h: 2.0, img: '/paintings/dd-10.jpg' },
-    { title: 'Artwork XI', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'east', offset: -3, w: 2.0, h: 2.0, img: '/paintings/dd-11.jpg' },
-    { title: 'Artwork XII', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'east', offset: 3, w: 2.0, h: 2.0, img: '/paintings/dd-12.jpg' },
+    { title: 'Textured Horizon', artist: 'D&D Art Studio', desc: 'Circular textured relief — layered greens evoking rolling fields.', wall: 'north', offset: -3, w: 2.0, h: 2.0, img: '/paintings/dd-05.jpg' },
+    { title: 'Ganesha in Motion', artist: 'Devanshi', desc: 'Abstract Ganesha bursting with vibrant color and energy.', wall: 'north', offset: 3, w: 1.8, h: 2.2, img: '/paintings/dd-17.jpg' },
+    { title: 'Rajasthani Mirror Frame', artist: 'D&D Art Studio', desc: 'Traditional red clay frame with mirror-work and arch motif.', wall: 'east', offset: -3, w: 1.8, h: 2.0, img: '/paintings/dd-06.jpg' },
+    { title: 'Painted Pottery', artist: 'D&D Art Studio', desc: 'Hand-painted ceramic vase with bird nest and desert landscape.', wall: 'east', offset: 3, w: 1.8, h: 2.0, img: '/paintings/dd-01.jpg' },
   ],
+  // Tatami floors, rice-paper walls - zen, peaceful, spiritual calm
   'Japanese Zen': [
-    { title: 'Artwork XIII', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'east', offset: -2, w: 2.0, h: 2.0, img: '/paintings/dd-13.jpg' },
-    { title: 'Artwork XIV', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'east', offset: 2, w: 2.0, h: 2.0, img: '/paintings/dd-14.jpg' },
-    { title: 'Artwork XV', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'west', offset: -2, w: 2.0, h: 2.0, img: '/paintings/dd-15.jpg' },
-    { title: 'Artwork XVI', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'west', offset: 2, w: 2.0, h: 2.0, img: '/paintings/dd-16.jpg' },
+    { title: 'Blue Buddha', artist: 'Drashti, 2022', desc: 'Serene Buddha adorned with bodhi leaves in golden light.', wall: 'east', offset: -2, w: 2.0, h: 2.0, img: '/paintings/dd-19.jpg' },
+    { title: 'Narcissus Bloom', artist: 'Drashti, 2025', desc: 'Delicate white flower rendered with quiet grace.', wall: 'east', offset: 2, w: 1.6, h: 2.0, img: '/paintings/dd-10.jpg' },
+    { title: 'Koi in Watercolor', artist: 'D&D Art Studio', desc: 'Flowing betta fish in translucent watercolor washes.', wall: 'west', offset: -2, w: 1.8, h: 2.2, img: '/paintings/dd-04.jpg' },
+    { title: 'Golden Leaves Triptych', artist: 'D&D Art Studio', desc: 'Three panels of golden botanicals on deep teal.', wall: 'west', offset: 2, w: 2.4, h: 1.4, img: '/paintings/dd-18.jpg' },
   ],
+  // Near-black walls, amber spots - dark dramatic pieces
   'Dark Gallery': [
-    { title: 'Artwork XVII', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'south', offset: -3, w: 2.0, h: 2.0, img: '/paintings/dd-17.jpg' },
-    { title: 'Artwork XVIII', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'south', offset: 3, w: 2.0, h: 2.0, img: '/paintings/dd-18.jpg' },
-    { title: 'Artwork XIX', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'east', offset: -3, w: 2.0, h: 2.0, img: '/paintings/dd-19.jpg' },
-    { title: 'Artwork XX', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'east', offset: 3, w: 2.0, h: 2.0, img: '/paintings/dd-20.jpg' },
+    { title: 'Radha & Krishna', artist: 'D&D Art Studio', desc: 'Intimate divine love rendered in bold reds and greys.', wall: 'south', offset: -3, w: 1.8, h: 2.2, img: '/paintings/dd-11.jpg' },
+    { title: 'Vishnu Virat Swaroop', artist: 'Drashti', desc: 'The cosmic form of Krishna on the battlefield of Kurukshetra.', wall: 'south', offset: 3, w: 1.8, h: 2.2, img: '/paintings/dd-20.jpg' },
+    { title: 'Shiva — Fire & Bells', artist: 'D&D Art Studio', desc: 'Vibrant temple bells and sacred flames with Shiva in profile.', wall: 'east', offset: -3, w: 1.8, h: 1.8, img: '/paintings/dd-09.jpg' },
+    { title: 'Ganesha with Sitar', artist: 'Drashti, 2025', desc: 'Musical Ganesha in rich greens and golds.', wall: 'east', offset: 3, w: 1.6, h: 2.2, img: '/paintings/dd-16.jpg' },
   ],
+  // Deep burgundy walls, gold trim - regal, luxurious
   'Royal Collection': [
-    { title: 'Artwork XXI', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'south', offset: -3, w: 2.0, h: 2.0, img: '/paintings/dd-21.jpg' },
-    { title: 'Artwork XXII', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'south', offset: 3, w: 2.0, h: 2.0, img: '/paintings/dd-22.jpg' },
-    { title: 'Artwork XXIII', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'north', offset: -3, w: 2.0, h: 2.0, img: '/paintings/dd-23.jpg' },
-    { title: 'Artwork XXIV', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'north', offset: 3, w: 2.0, h: 2.0, img: '/paintings/dd-24.jpg' },
+    { title: 'Tropical Macaw', artist: 'Drashti, 2023', desc: 'Majestic parrot in sunlit rainforest — vivid realism.', wall: 'south', offset: -3, w: 1.8, h: 2.2, img: '/paintings/dd-02.jpg' },
+    { title: 'Cardinal Pair', artist: 'Devanshi', desc: 'Two cardinals perched on a birch branch in autumn light.', wall: 'south', offset: 3, w: 1.8, h: 1.8, img: '/paintings/dd-13.jpg' },
+    { title: 'Jungle Canopy', artist: 'D&D Art Studio', desc: 'Lush wildlife scene celebrating tropical biodiversity.', wall: 'north', offset: -3, w: 2.0, h: 2.0, img: '/paintings/dd-23.jpg' },
+    { title: 'Feathered Dreams', artist: 'D&D Art Studio', desc: 'Exotic plumage study in rich jewel tones.', wall: 'north', offset: 3, w: 2.0, h: 2.0, img: '/paintings/dd-24.jpg' },
   ],
+  // Sage green walls, warm light - nature, botanicals, soft palette
   'Impressionist Garden': [
-    { title: 'Artwork XXV', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'west', offset: -2, w: 2.0, h: 2.0, img: '/paintings/dd-25.jpg' },
-    { title: 'Artwork XXVI', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'west', offset: 2, w: 2.0, h: 2.0, img: '/paintings/dd-26.jpg' },
-    { title: 'Artwork XXVII', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'east', offset: -2, w: 2.0, h: 2.0, img: '/paintings/dd-27.jpg' },
-    { title: 'Artwork XXVIII', artist: 'D&D Art Studio', desc: 'Original artwork by DevDrashti.', wall: 'east', offset: 2, w: 2.0, h: 2.0, img: '/paintings/dd-28.jpg' },
+    { title: 'Abstract Flora', artist: 'D&D Art Studio', desc: 'Organic botanical forms in soft earth tones.', wall: 'west', offset: -2, w: 2.0, h: 2.0, img: '/paintings/dd-25.jpg' },
+    { title: 'Nature Study', artist: 'D&D Art Studio', desc: 'Delicate natural forms captured in gentle hues.', wall: 'west', offset: 2, w: 2.0, h: 2.0, img: '/paintings/dd-26.jpg' },
+    { title: 'Wild Growth', artist: 'D&D Art Studio', desc: 'Botanical textures and earthy organic patterns.', wall: 'east', offset: -2, w: 2.0, h: 2.0, img: '/paintings/dd-27.jpg' },
+    { title: 'Seed Mandala', artist: 'D&D Art Studio', desc: 'Natural seed arrangement in meditative circular pattern.', wall: 'east', offset: 2, w: 2.0, h: 2.0, img: '/paintings/dd-28.jpg' },
   ],
 };
