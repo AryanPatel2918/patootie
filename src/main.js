@@ -4,6 +4,7 @@ import { createGallery } from './gallery.js';
 import { setupArtworks, checkArtworkProximity } from './artworks.js';
 import { updateMinimap } from './minimap.js';
 import { ROOMS } from './config.js';
+import { isMobileDevice, setupMobileControls, getMobileMovement, applyMobileLook } from './mobile.js';
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -19,13 +20,19 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = false;
 document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-// Controls
-const controls = new PointerLockControls(camera, renderer.domElement);
+// Detect mobile
+const mobile = isMobileDevice();
+
+// Controls - desktop uses PointerLock, mobile uses touch
+let controls = null;
+let isActive = false;
+
+if (!mobile) {
+  controls = new PointerLockControls(camera, renderer.domElement);
+}
 
 // Movement state
 const movement = { forward: false, backward: false, left: false, right: false };
-const velocity = new THREE.Vector3();
-const direction = new THREE.Vector3();
 const clock = new THREE.Clock();
 
 // Wall collision meshes
@@ -35,21 +42,40 @@ let wallColliders = [];
 const blocker = document.getElementById('blocker');
 const crosshair = document.getElementById('crosshair');
 
-blocker.addEventListener('click', () => {
-  controls.lock();
-});
+if (mobile) {
+  // Update instructions for mobile
+  const controlsInfo = blocker.querySelector('.controls-info');
+  if (controlsInfo) {
+    controlsInfo.innerHTML = 'Left side: Drag to move<br/>Right side: Drag to look';
+  }
+  const enterText = blocker.querySelector('#instructions p');
+  if (enterText) enterText.textContent = 'Tap to enter';
 
-controls.addEventListener('lock', () => {
-  blocker.classList.add('hidden');
-  crosshair.style.display = 'block';
-});
+  blocker.addEventListener('click', () => {
+    blocker.classList.add('hidden');
+    crosshair.style.display = 'block';
+    isActive = true;
+    setupMobileControls(camera);
+  });
+} else {
+  blocker.addEventListener('click', () => {
+    controls.lock();
+  });
 
-controls.addEventListener('unlock', () => {
-  blocker.classList.remove('hidden');
-  crosshair.style.display = 'none';
-});
+  controls.addEventListener('lock', () => {
+    blocker.classList.add('hidden');
+    crosshair.style.display = 'block';
+    isActive = true;
+  });
 
-// Keyboard events
+  controls.addEventListener('unlock', () => {
+    blocker.classList.remove('hidden');
+    crosshair.style.display = 'none';
+    isActive = false;
+  });
+}
+
+// Keyboard events (desktop)
 document.addEventListener('keydown', (e) => {
   switch (e.code) {
     case 'KeyW': case 'ArrowUp': movement.forward = true; break;
@@ -115,13 +141,33 @@ function animate() {
   requestAnimationFrame(animate);
 
   const delta = Math.min(clock.getDelta(), 0.1);
+  const shouldUpdate = mobile ? isActive : (controls && controls.isLocked);
 
-  if (controls.isLocked) {
+  if (shouldUpdate) {
     const speed = 4.0;
+    let dirX = 0;
+    let dirZ = 0;
 
-    direction.z = Number(movement.forward) - Number(movement.backward);
-    direction.x = Number(movement.right) - Number(movement.left);
-    direction.normalize();
+    if (mobile) {
+      // Apply touch look
+      applyMobileLook(camera);
+
+      // Get joystick input
+      const mobileInput = getMobileMovement();
+      dirX = mobileInput.x;
+      dirZ = mobileInput.z;
+    } else {
+      // Keyboard input
+      dirZ = Number(movement.forward) - Number(movement.backward);
+      dirX = Number(movement.right) - Number(movement.left);
+    }
+
+    // Normalize if both axes active
+    const len = Math.sqrt(dirX * dirX + dirZ * dirZ);
+    if (len > 1) {
+      dirX /= len;
+      dirZ /= len;
+    }
 
     // Get camera direction vectors
     const forward = new THREE.Vector3();
@@ -134,22 +180,22 @@ function animate() {
 
     // Calculate move vector
     const moveVec = new THREE.Vector3();
-    moveVec.addScaledVector(forward, direction.z * speed * delta);
-    moveVec.addScaledVector(right, direction.x * speed * delta);
+    moveVec.addScaledVector(forward, dirZ * speed * delta);
+    moveVec.addScaledVector(right, dirX * speed * delta);
 
     // Apply movement with collision
-    if (moveVec.length() > 0) {
+    if (moveVec.length() > 0.001) {
       const moveDir = moveVec.clone().normalize();
       if (!checkCollision(moveDir)) {
         camera.position.add(moveVec);
       } else {
         // Try sliding along walls
         const slideX = new THREE.Vector3(moveVec.x, 0, 0);
-        if (slideX.length() > 0 && !checkCollision(slideX.clone().normalize())) {
+        if (slideX.length() > 0.001 && !checkCollision(slideX.clone().normalize())) {
           camera.position.add(slideX);
         }
         const slideZ = new THREE.Vector3(0, 0, moveVec.z);
-        if (slideZ.length() > 0 && !checkCollision(slideZ.clone().normalize())) {
+        if (slideZ.length() > 0.001 && !checkCollision(slideZ.clone().normalize())) {
           camera.position.add(slideZ);
         }
       }

@@ -157,3 +157,63 @@ html, body {
   z-index: 20;
   pointer-events: none;
 }
+
+/* Mobile joystick */
+#joystick-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 40%;
+  z-index: 30;
+  pointer-events: none;
+}
+
+#joystick-base {
+  display: none;
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+#joystick-thumb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transition: transform 0.05s;
+}
+
+/* Hide minimap on very small screens */
+@media (max-width: 480px) {
+  #minimap {
+    width: 120px;
+    height: 120px;
+    bottom: 10px;
+    left: 10px;
+    opacity: 0.7;
+  }
+
+  #room-label {
+    font-size: 0.75rem;
+    padding: 8px 16px;
+  }
+
+  #artwork-panel {
+    bottom: 40px;
+    max-width: 280px;
+    padding: 12px 16px;
+  }
+
+  #instructions h1 {
+    font-size: 1.8rem;
+  }
+}
